@@ -1,0 +1,12 @@
+{
+  "users": [
+    {
+      "email": "test@mail.com",
+      "password": "$2a$10$ejuF1TfkzM2DcAtJmP1yVuB6sFAMypHQ4oGC2./YRpHpd6EmqLm96",
+      "role": "booker",
+      "name": "Elvis",
+      "bookings": [],
+      "id": 1
+    }
+  ]
+}
