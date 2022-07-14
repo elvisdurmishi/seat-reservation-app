@@ -1,6 +1,11 @@
 import {createAction, props} from "@ngrx/store";
 import {User} from "../../model/User";
 
+export const loadAccessTokenCookie = createAction(
+  "[Auth] Load Access Token Cookie",
+  props<{payload: {accessToken: string }}>()
+)
+
 export const login = createAction(
   "[Auth] Login",
   props<{ payload: { email: string, password: string } }>()

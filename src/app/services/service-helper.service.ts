@@ -16,7 +16,6 @@ export class ServiceHelperService {
   constructor(private http:HttpClient) { }
 
   postRequest(endpoint: string, body: object, model: any = null) {
-    console.log("body", body);
     if(model) {
       return this.http.post<typeof model>(environment.API_URL + endpoint, body, httpOptions);
     }

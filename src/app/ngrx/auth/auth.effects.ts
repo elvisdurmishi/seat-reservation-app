@@ -5,13 +5,15 @@ import {AppState} from "../app.state";
 import {Actions, createEffect, ofType} from "@ngrx/effects";
 import {login, loginFailure, loginSuccess, register, registerFailure, registerSuccess} from "./auth.actions";
 import {catchError, from, map, of, switchMap} from "rxjs";
+import {CookieService} from "ngx-cookie-service";
 
 @Injectable()
 export class AuthEffects {
   constructor(
     private actions$: Actions,
     private store: Store<AppState>,
-    private authService: AuthService
+    private authService: AuthService,
+    private cookieService: CookieService
   ) { }
 
   login$ = createEffect(() =>
@@ -19,7 +21,10 @@ export class AuthEffects {
       ofType(login),
       switchMap(({payload}) =>
         from(this.authService.login(payload.email, payload.password)).pipe(
-          map((data) => loginSuccess({payload: {user: data.user, accessToken: data.accessToken}})),
+          map((data) => {
+            this.cookieService.set("accessToken", data.accessToken);
+            return loginSuccess({payload: {user: data.user, accessToken: data.accessToken}})
+          }),
           catchError((error) => of(loginFailure({error})))
         )
       )

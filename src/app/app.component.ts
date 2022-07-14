@@ -1,10 +1,23 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {Store} from "@ngrx/store";
+import {loadAccessTokenCookie} from "./ngrx/auth/auth.actions";
+import {CookieService} from "ngx-cookie-service";
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'seat-reservation-app';
+
+  constructor(private store: Store, private cookieService: CookieService) {
+  }
+
+  ngOnInit(): void {
+    let accessToken = this.cookieService.get("accessToken");
+    if(accessToken !== '') {
+      this.store.dispatch(loadAccessTokenCookie({payload: {accessToken: accessToken}}))
+    }
+  }
 }

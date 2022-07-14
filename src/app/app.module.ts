@@ -18,6 +18,7 @@ import {environment} from "../environments/environment";
 import {appEffects} from "./ngrx/app.effects";
 import {EffectsModule} from "@ngrx/effects";
 import {ReactiveFormsModule} from "@angular/forms";
+import {CookieService} from "ngx-cookie-service";
 
 @NgModule({
   declarations: [
@@ -41,7 +42,7 @@ import {ReactiveFormsModule} from "@angular/forms";
     }),
     EffectsModule.forRoot(appEffects)
   ],
-  providers: [],
+  providers: [CookieService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
