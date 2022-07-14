@@ -6,17 +6,24 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
 import {FormsModule} from "@angular/forms";
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import {routes} from "./routes/routes.main";
+import {RouterModule} from "@angular/router";
+import { LoginComponent } from './components/auth/login/login.component';
+import { BreadcrumbComponent } from './components/common/breadcrumb/breadcrumb.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
+    LoginComponent,
+    BreadcrumbComponent,
   ],
   imports: [
     BrowserModule,
     FormsModule,
     AppRoutingModule,
     FontAwesomeModule,
+    RouterModule.forRoot(routes, {}),
   ],
   providers: [],
   bootstrap: [AppComponent]
