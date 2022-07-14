@@ -10,6 +10,7 @@ import {routes} from "./routes/routes.main";
 import {RouterModule} from "@angular/router";
 import { LoginComponent } from './components/auth/login/login.component';
 import { BreadcrumbComponent } from './components/common/breadcrumb/breadcrumb.component';
+import { RegisterComponent } from './components/auth/register/register.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { BreadcrumbComponent } from './components/common/breadcrumb/breadcrumb.c
     HeaderComponent,
     LoginComponent,
     BreadcrumbComponent,
+    RegisterComponent,
   ],
   imports: [
     BrowserModule,
