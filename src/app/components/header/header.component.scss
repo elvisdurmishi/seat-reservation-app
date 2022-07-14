@@ -1,0 +1,24 @@
+.navbar {
+  .navbar-search {
+    margin-left: 2rem;
+    border-radius: 25px;
+    border: 0;
+    background-color: #E5E7EB;
+    padding: 0.5rem 1rem;
+  }
+
+  .navbar-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 100%;
+    background-color: gray;
+  }
+
+  .navbar-nav {
+    .nav-item {
+      padding-top: 0.5rem;
+      padding-bottom: 0.5rem;
+    }
+  }
+}
+
