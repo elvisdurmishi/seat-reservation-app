@@ -3,6 +3,7 @@ import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {Store} from "@ngrx/store";
 import {register} from "../../../ngrx/auth/auth.actions";
 import {User} from "../../../model/User";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-register',
@@ -11,10 +12,12 @@ import {User} from "../../../model/User";
 })
 export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
+  isManagerRegister: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
-    private store: Store
+    private store: Store,
+    private route: ActivatedRoute
   ) {
     this.registerForm = this.formBuilder.group({
       role: ['booker'],
@@ -35,6 +38,8 @@ export class RegisterComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.isManagerRegister = !!this.route?.routeConfig?.path?.includes("manager");
+    this.registerForm.get("role")?.setValue(this.isManagerRegister ? 'manager' : 'booker');
   }
 
   handleRegister(event: any) {

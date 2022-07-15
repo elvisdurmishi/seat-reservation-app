@@ -7,6 +7,14 @@
       "name": "Elvis",
       "bookings": [],
       "id": 1
+    },
+    {
+      "email": "elvis@mail.com",
+      "password": "$2a$10$vjpd6rn/Xck7iXDJ/uS0tuhWeUKkbJlV8Rwu1rnw0RXvjH1uTphRy",
+      "role": "manager",
+      "name": "Elvis",
+      "bookings": [],
+      "id": 2
     }
   ]
 }
