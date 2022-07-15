@@ -19,4 +19,8 @@ export class AuthService {
   register(user: User) {
     return this.http.postRequest("/register", user);
   }
+
+  loadUser(userId: string) {
+    return this.http.getRequest(`/users/${userId}`, "/400")
+  }
 }

@@ -1,9 +1,9 @@
 import {createReducer, on} from "@ngrx/store";
 import {
-  loadAccessTokenCookie,
+  loadAccessTokenCookie, loadUser, loadUserSuccess,
   login,
   loginFailure,
-  loginSuccess,
+  loginSuccess, logout,
   register,
   registerFailure,
   registerSuccess
@@ -61,5 +61,22 @@ export const authReducer = createReducer(
     ...state,
     error: `The provided data is invalid. ${error}`,
     status: 'error'
-  }))
+  })),
+  on(logout, (state) => ({
+    ...state,
+    user: initialState.user,
+    accessToken: initialState.accessToken,
+    error: initialState.error,
+    status: initialState.status,
+  })),
+  on(loadUser, (state) => ({
+    ...state,
+    status: 'loading'
+  })),
+  on(loadUserSuccess, (state, {payload}) => ({
+    ...state,
+    user: payload.user,
+    error: null,
+    status: 'success',
+  })),
 )

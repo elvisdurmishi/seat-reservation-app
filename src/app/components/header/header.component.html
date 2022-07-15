@@ -8,10 +8,19 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <div class="navbar-avatar ms-auto d-lg-block d-none mx-3"></div>
-      <ul class="navbar-nav d-flex d-lg-none flex-column justify-content-center align-items-center">
-        <li class="nav-item">My Profile</li>
-      </ul>
+      <ng-container *ngIf="user$ | async as user">
+        <div class="ms-auto d-lg-flex align-items-center d-none">
+          <div class="flex-center flex-column mx-3">
+            <div class="navbar-avatar"></div>
+            <span>{{ user.name }}</span>
+          </div>
+          <button class="btn" (click)="logout()"><fa-icon [icon]="faArrowRightFromBracket"></fa-icon></button>
+        </div>
+        <ul class="navbar-nav flex-center d-lg-none flex-column">
+          <li class="nav-item">My Profile</li>
+          <li class="nav-item">Logout</li>
+        </ul>
+      </ng-container>
     </div>
   </div>
 </nav>

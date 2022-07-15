@@ -1,7 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {Store} from "@ngrx/store";
-import {loadAccessTokenCookie} from "./ngrx/auth/auth.actions";
+import {loadAccessTokenCookie, loadUser} from "./ngrx/auth/auth.actions";
 import {CookieService} from "ngx-cookie-service";
+import {parseJwt} from "./utility/utility.functions";
 
 @Component({
   selector: 'app-root',
@@ -18,6 +19,8 @@ export class AppComponent implements OnInit {
     let accessToken = this.cookieService.get("accessToken");
     if(accessToken !== '') {
       this.store.dispatch(loadAccessTokenCookie({payload: {accessToken: accessToken}}))
+      let parsedToken = parseJwt(accessToken);
+      this.store.dispatch(loadUser({payload: {userId: parsedToken.sub}}))
     }
   }
 }

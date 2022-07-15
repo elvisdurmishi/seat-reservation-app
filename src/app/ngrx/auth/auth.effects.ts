@@ -3,7 +3,16 @@ import {Injectable} from "@angular/core";
 import {Store} from "@ngrx/store";
 import {AppState} from "../app.state";
 import {Actions, createEffect, ofType} from "@ngrx/effects";
-import {login, loginFailure, loginSuccess, register, registerFailure, registerSuccess} from "./auth.actions";
+import {
+  loadUser, loadUserFailure,
+  loadUserSuccess,
+  login,
+  loginFailure,
+  loginSuccess, logout,
+  register,
+  registerFailure,
+  registerSuccess
+} from "./auth.actions";
 import {catchError, from, map, of, switchMap, tap} from "rxjs";
 import {CookieService} from "ngx-cookie-service";
 import {Router} from "@angular/router";
@@ -41,6 +50,30 @@ export class AuthEffects {
         from(this.authService.register(payload.user)).pipe(
           map((data) => registerSuccess({payload: {user: data.user, accessToken: data.accessToken}})),
           catchError((error) => of(registerFailure(error)))
+        )
+      )
+    )
+  );
+
+  logout$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(logout),
+      switchMap(() => {
+        this.cookieService.delete("accessToken");
+        return this.router.navigateByUrl("/login")
+      })
+    ),{ dispatch: false }
+  )
+
+  loadUser$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(loadUser),
+      switchMap(({payload}) =>
+        from(this.authService.loadUser(payload.userId)).pipe(
+          map((data) => {
+            return loadUserSuccess({payload: {user: data}})
+          }),
+          catchError((error) => of(loadUserFailure(error)))
         )
       )
     )

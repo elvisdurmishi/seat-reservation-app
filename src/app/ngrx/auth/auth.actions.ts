@@ -39,3 +39,22 @@ export const registerFailure = createAction(
   "[Auth] Register Failure",
   props<{ error: string }>()
 )
+
+export const logout = createAction(
+  "[Auth] Logout"
+)
+
+export const loadUser = createAction(
+  "[Auth] Load User",
+  props<{payload: { userId: string }}>()
+)
+
+export const loadUserSuccess = createAction(
+  "[Auth] Load User Success",
+  props<{ payload: { user: User } }>()
+)
+
+export const loadUserFailure = createAction(
+  "[Auth] Load User Failure",
+  props<{ error: string }>()
+)
