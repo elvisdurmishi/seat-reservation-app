@@ -36,8 +36,8 @@ export class AuthEffects {
       ofType(register),
       switchMap(({payload}) =>
         from(this.authService.register(payload.user)).pipe(
-          map((data) => registerSuccess()),
-          catchError((error) => of(registerFailure({error})))
+          map((data) => registerSuccess({payload: {user: data.user, accessToken: data.accessToken}})),
+          catchError((error) => of(registerFailure(error)))
         )
       )
     )

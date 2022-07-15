@@ -4,6 +4,8 @@ import {Store} from "@ngrx/store";
 import {register} from "../../../ngrx/auth/auth.actions";
 import {User} from "../../../model/User";
 import {ActivatedRoute} from "@angular/router";
+import {getAuthError, getAuthStatus} from "../../../ngrx/auth/auth.selectors";
+import {AppState} from "../../../ngrx/app.state";
 
 @Component({
   selector: 'app-register',
@@ -13,10 +15,12 @@ import {ActivatedRoute} from "@angular/router";
 export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
   isManagerRegister: boolean = false;
+  public registerStatus$ = this.store.select(getAuthStatus);
+  public registerError$ = this.store.select(getAuthError);
 
   constructor(
     private formBuilder: FormBuilder,
-    private store: Store,
+    private store: Store<AppState>,
     private route: ActivatedRoute
   ) {
     this.registerForm = this.formBuilder.group({

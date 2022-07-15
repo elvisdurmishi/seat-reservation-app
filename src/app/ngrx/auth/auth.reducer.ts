@@ -1,19 +1,27 @@
 import {createReducer, on} from "@ngrx/store";
-import {loadAccessTokenCookie, login, loginFailure, loginSuccess} from "./auth.actions";
+import {
+  loadAccessTokenCookie,
+  login,
+  loginFailure,
+  loginSuccess,
+  register,
+  registerFailure,
+  registerSuccess
+} from "./auth.actions";
 import {User} from "../../model/User";
 
 export interface AuthState {
   user: User | null,
   accessToken: string | null,
   error: string | null,
-  status: 'loading' | 'error' | 'success',
+  status: 'initial' | 'loading' | 'error' | 'success',
 }
 
 export const initialState: AuthState = {
   user: null,
   accessToken: null,
   error: null,
-  status: 'loading',
+  status: 'initial',
 }
 
 export const authReducer = createReducer(
@@ -36,6 +44,22 @@ export const authReducer = createReducer(
   on(loginFailure, (state) => ({
     ...state,
     error: "There was a problem loading the user.",
+    status: 'error'
+  })),
+  on(register, (state) => ({
+    ...state,
+    status: 'loading'
+  })),
+  on(registerSuccess, (state, {payload}) => ({
+    ...state,
+    user: payload.user,
+    accessToken: payload.accessToken,
+    error: null,
+    status: 'success',
+  })),
+  on(registerFailure, (state, {error}) => ({
+    ...state,
+    error: `The provided data is invalid. ${error}`,
     status: 'error'
   }))
 )

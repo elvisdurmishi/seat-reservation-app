@@ -19,15 +19,17 @@ import {appEffects} from "./ngrx/app.effects";
 import {EffectsModule} from "@ngrx/effects";
 import {ReactiveFormsModule} from "@angular/forms";
 import {CookieService} from "ngx-cookie-service";
+import {SmallLoaderComponent} from "./components/common/small-loader/small-loader.component";
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    HeaderComponent,
-    LoginComponent,
-    BreadcrumbComponent,
-    RegisterComponent,
-  ],
+    declarations: [
+        AppComponent,
+        HeaderComponent,
+        LoginComponent,
+        BreadcrumbComponent,
+        RegisterComponent,
+        SmallLoaderComponent,
+    ],
   imports: [
     BrowserModule,
     ReactiveFormsModule,

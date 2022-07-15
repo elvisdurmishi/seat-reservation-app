@@ -31,7 +31,8 @@ export const register = createAction(
 )
 
 export const registerSuccess = createAction(
-  "[Auth] Register Success"
+  "[Auth] Register Success",
+  props<{ payload: { user: User, accessToken: string } }>()
 )
 
 export const registerFailure = createAction(
