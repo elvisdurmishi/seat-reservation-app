@@ -27,15 +27,15 @@ export class RegisterComponent implements OnInit {
       role: ['booker'],
       name: new FormControl('', {
         validators: [Validators.required, Validators.minLength(3)],
-        updateOn: "blur"
+        updateOn: "change"
       }),
       email: new FormControl('', {
         validators: [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")],
-        updateOn: "blur"
+        updateOn: "change"
       }),
       password: new FormControl('', {
         validators: [Validators.required, Validators.minLength(6)],
-        updateOn: "blur"
+        updateOn: "change"
       }),
       bookings: [[]]
     })

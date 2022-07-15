@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {Store} from "@ngrx/store";
 import {login} from "../../../ngrx/auth/auth.actions";
+import {getAuthError, getAuthStatus} from "../../../ngrx/auth/auth.selectors";
+import {AppState} from "../../../ngrx/app.state";
 
 @Component({
   selector: 'app-login',
@@ -10,19 +12,21 @@ import {login} from "../../../ngrx/auth/auth.actions";
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
+  loginStatus$ = this.store.select(getAuthStatus);
+  loginError$ = this.store.select(getAuthError);
 
   constructor(
     private formBuilder: FormBuilder,
-    private store: Store
+    private store: Store<AppState>
   ) {
     this.loginForm = this.formBuilder.group({
       email: new FormControl('', {
         validators: [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")],
-        updateOn: "blur"
+        updateOn: "change"
       }),
       password: new FormControl('', {
         validators: [Validators.required, Validators.minLength(6)],
-        updateOn: "blur"
+        updateOn: "change"
       }),
     })
   }

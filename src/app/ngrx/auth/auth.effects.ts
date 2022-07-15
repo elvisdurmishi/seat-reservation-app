@@ -25,7 +25,7 @@ export class AuthEffects {
             this.cookieService.set("accessToken", data.accessToken);
             return loginSuccess({payload: {user: data.user, accessToken: data.accessToken}})
           }),
-          catchError((error) => of(loginFailure({error})))
+          catchError((error) => of(loginFailure(error)))
         )
       )
     )

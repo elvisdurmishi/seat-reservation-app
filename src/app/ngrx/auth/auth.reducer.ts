@@ -41,9 +41,9 @@ export const authReducer = createReducer(
     error: null,
     status: 'success',
   })),
-  on(loginFailure, (state) => ({
+  on(loginFailure, (state, {error}) => ({
     ...state,
-    error: "There was a problem loading the user.",
+    error: `The provided data is invalid. ${error}`,
     status: 'error'
   })),
   on(register, (state) => ({
