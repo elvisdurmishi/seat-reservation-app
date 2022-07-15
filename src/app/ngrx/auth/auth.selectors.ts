@@ -7,6 +7,10 @@ export const getAuth = createSelector(
   selectAuth,
   (state: AuthState) => state
 )
+export const getAccessToken = createSelector(
+  selectAuth,
+  (state: AuthState) => state.accessToken
+)
 export const getUser = createSelector(
   selectAuth,
   (state: AuthState) => state.user

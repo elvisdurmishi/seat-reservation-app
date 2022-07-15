@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import {Store} from "@ngrx/store";
+import {getRooms} from "../../../ngrx/rooms/rooms.selectors";
+import {AppState} from "../../../ngrx/app.state";
+import {map} from "rxjs";
 
 @Component({
   selector: 'app-dashboard',
@@ -6,8 +10,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
+  rooms$ = this.store.select(getRooms).pipe(map(data => data || []));
 
-  constructor() { }
+  constructor(private store: Store<AppState>) { }
 
   ngOnInit(): void {
   }

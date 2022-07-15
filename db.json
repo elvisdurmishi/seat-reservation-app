@@ -12,9 +12,25 @@
       "email": "elvis@mail.com",
       "password": "$2a$10$vjpd6rn/Xck7iXDJ/uS0tuhWeUKkbJlV8Rwu1rnw0RXvjH1uTphRy",
       "role": "manager",
-      "name": "Elvis",
+      "name": "Manager",
       "bookings": [],
       "id": 2
+    }
+  ],
+  "rooms": [
+    {
+      "id": 1,
+      "name": "First Room",
+      "rows": 10,
+      "seats": 50,
+      "layout": "layout-one"
+    },
+    {
+      "id": 2,
+      "name": "Second Room",
+      "rows": 20,
+      "seats": 50,
+      "layout": "layout-two"
     }
   ]
 }

@@ -10,6 +10,7 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ng-container *ngIf="user$ | async as user">
         <div class="ms-auto d-lg-flex align-items-center d-none">
+          <button class="btn btn-primary">Create a Room</button>
           <div class="flex-center flex-column mx-3">
             <div class="navbar-avatar"></div>
             <span>{{ user.name }}</span>
@@ -18,6 +19,7 @@
         </div>
         <ul class="navbar-nav flex-center d-lg-none flex-column">
           <li class="nav-item">My Profile</li>
+          <li class="nav-item">Create a Room</li>
           <li class="nav-item">Logout</li>
         </ul>
       </ng-container>
