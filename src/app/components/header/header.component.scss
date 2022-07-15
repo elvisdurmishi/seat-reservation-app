@@ -1,4 +1,7 @@
+$min-height: 106px;
+
 .navbar {
+  min-height: $min-height;
   margin-bottom: 1rem;
 
   .navbar-light {
