@@ -39,6 +39,8 @@ export class LoginComponent implements OnInit {
         password: this.password?.getRawValue(),
       }
     }))
+
+    this.loginForm.reset();
   }
 
   get email() {
