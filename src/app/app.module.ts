@@ -20,6 +20,7 @@ import {EffectsModule} from "@ngrx/effects";
 import {ReactiveFormsModule} from "@angular/forms";
 import {CookieService} from "ngx-cookie-service";
 import {SmallLoaderComponent} from "./components/common/small-loader/small-loader.component";
+import { DashboardComponent } from './components/dashboard/dashboard/dashboard.component';
 
 @NgModule({
     declarations: [
@@ -29,6 +30,7 @@ import {SmallLoaderComponent} from "./components/common/small-loader/small-loade
         BreadcrumbComponent,
         RegisterComponent,
         SmallLoaderComponent,
+        DashboardComponent,
     ],
   imports: [
     BrowserModule,

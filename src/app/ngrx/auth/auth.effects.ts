@@ -4,8 +4,9 @@ import {Store} from "@ngrx/store";
 import {AppState} from "../app.state";
 import {Actions, createEffect, ofType} from "@ngrx/effects";
 import {login, loginFailure, loginSuccess, register, registerFailure, registerSuccess} from "./auth.actions";
-import {catchError, from, map, of, switchMap} from "rxjs";
+import {catchError, from, map, of, switchMap, tap} from "rxjs";
 import {CookieService} from "ngx-cookie-service";
+import {Router} from "@angular/router";
 
 @Injectable()
 export class AuthEffects {
@@ -13,7 +14,8 @@ export class AuthEffects {
     private actions$: Actions,
     private store: Store<AppState>,
     private authService: AuthService,
-    private cookieService: CookieService
+    private cookieService: CookieService,
+    private router: Router
   ) { }
 
   login$ = createEffect(() =>
@@ -25,6 +27,7 @@ export class AuthEffects {
             this.cookieService.set("accessToken", data.accessToken);
             return loginSuccess({payload: {user: data.user, accessToken: data.accessToken}})
           }),
+          tap(() => this.router.navigateByUrl("/")),
           catchError((error) => of(loginFailure(error)))
         )
       )
