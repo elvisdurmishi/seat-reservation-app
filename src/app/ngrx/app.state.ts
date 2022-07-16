@@ -3,5 +3,5 @@ import {RoomState} from "./rooms/rooms.reducer";
 
 export interface AppState {
   auth: AuthState;
-  rooms: RoomState;
+  room: RoomState;
 }

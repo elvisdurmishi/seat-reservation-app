@@ -21,16 +21,62 @@
     {
       "id": 1,
       "name": "First Room",
-      "rows": 10,
-      "seats": 50,
-      "layout": "layout-one"
+      "rows": [
+        {
+          "id": 1,
+          "order": 1
+        }
+      ]
     },
     {
       "id": 2,
       "name": "Second Room",
-      "rows": 20,
-      "seats": 50,
-      "layout": "layout-two"
+      "rows": [
+        {
+          "id": 2,
+          "order": 1
+        }
+      ]
+    }
+  ],
+  "seats": [
+    {
+      "id": 1,
+      "roomId": 1,
+      "rowOrder": 1,
+      "seatOrder": 1,
+      "status": "free",
+      "availability": {
+        "from": {
+          "year": 2022,
+          "month": 7,
+          "day": 16
+        },
+        "to": {
+          "year": 2022,
+          "month": 7,
+          "day": 22
+        }
+      }
+    },
+    {
+      "id": 2,
+      "roomId": 1,
+      "rowOrder": 1,
+      "seatOrder": 2,
+      "status": "free",
+      "availability": {
+        "from": {
+          "year": 2022,
+          "month": 7,
+          "day": 16
+        },
+        "to": {
+          "year": 2022,
+          "month": 7,
+          "day": 22
+        }
+      }
     }
   ]
 }

@@ -2,7 +2,7 @@ import {AppState} from "../app.state";
 import {createSelector} from "@ngrx/store";
 import {RoomState} from "./rooms.reducer";
 
-export const selectAuth = (state: AppState) => state.rooms;
+export const selectAuth = (state: AppState) => state.room;
 export const getRoomState = createSelector(
   selectAuth,
   (state: RoomState) => state

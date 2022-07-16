@@ -3,5 +3,5 @@ import {roomReducer} from "./rooms/rooms.reducer";
 
 export const appReducers = {
   auth: authReducer,
-  rooms: roomReducer,
+  room: roomReducer,
 }
