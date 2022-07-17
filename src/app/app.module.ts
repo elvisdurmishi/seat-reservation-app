@@ -24,6 +24,7 @@ import { DashboardComponent } from './components/dashboard/dashboard/dashboard.c
 import { ManagerDashboardComponent } from './components/dashboard/manager-dashboard/manager-dashboard.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {DatepickerComponent} from "./components/common/datepicker/datepicker.component";
+import { SeatModalComponent } from './components/modals/seat-modal/seat-modal.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import {DatepickerComponent} from "./components/common/datepicker/datepicker.com
     DashboardComponent,
     ManagerDashboardComponent,
     DatepickerComponent,
+    SeatModalComponent,
   ],
   imports: [
     BrowserModule,
@@ -53,6 +55,9 @@ import {DatepickerComponent} from "./components/common/datepicker/datepicker.com
     NgbModule
   ],
   providers: [CookieService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents:[
+    SeatModalComponent
+  ],
 })
 export class AppModule { }

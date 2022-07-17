@@ -3,6 +3,8 @@ import {Store} from "@ngrx/store";
 import {AppState} from "../../../ngrx/app.state";
 import {getSeats} from "../../../ngrx/seats/seats.selectors";
 import {loadSeats} from "../../../ngrx/seats/seats.actions";
+import {Seat} from "../../../model/Seat";
+import {openSeatModal} from "../../../ngrx/modals/modals.actions";
 
 @Component({
   selector: 'app-manager-dashboard',
@@ -19,4 +21,7 @@ export class ManagerDashboardComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  editSeat(seat: Seat) {
+    this.store.dispatch(openSeatModal({payload: {seat: seat}}))
+  }
 }
