@@ -56,5 +56,9 @@ export const loadFilteredSeatsSuccess = createAction(
 
 
 export const loadFilteredSeatsFailure = createAction(
-  "[Dashboard] Load Filtered Seats Failure",
+  "[Manager Dashboard] Load Filtered Seats Failure",
+)
+
+export const clearFilterResults = createAction(
+  "[Manager Dashboard] Clear Filter Results",
 )

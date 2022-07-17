@@ -3,6 +3,7 @@ import {Store} from "@ngrx/store";
 import {AppState} from "../../../ngrx/app.state";
 import {getFilteredSeats, getSeats} from "../../../ngrx/seats/seats.selectors";
 import {
+  clearFilterResults,
   deleteSeat,
   loadFilteredSeats,
   loadSeats
@@ -39,7 +40,9 @@ export class ManagerDashboardComponent implements OnInit, OnDestroy {
 
     this.seatFilters$ = this.filtersForm.valueChanges.pipe(
       map((filters) => {
-        return this.store.dispatch(loadFilteredSeats({payload: {filters: filters}}));
+        return this.hasFilters(filters)
+          ? this.store.dispatch(loadFilteredSeats({payload: {filters: filters}}))
+          : this.store.dispatch(clearFilterResults())
       })
     ).subscribe();
   }
@@ -57,5 +60,15 @@ export class ManagerDashboardComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.seatFilters$.unsubscribe();
+  }
+
+  hasFilters(filters: object) {
+    return Object.entries(filters).some(([key, value]) => {
+      if(value !== 'all') {
+        return true;
+      }
+
+      return;
+    });
   }
 }

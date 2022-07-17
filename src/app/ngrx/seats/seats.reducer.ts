@@ -1,6 +1,7 @@
 import {Seat} from "../../model/Seat";
 import {createReducer, on} from "@ngrx/store";
 import {
+  clearFilterResults,
   deleteSeatSuccess,
   loadFilteredSeats, loadFilteredSeatsSuccess,
   loadSeats,
@@ -80,4 +81,13 @@ export const seatsReducer = createReducer(
       status: 'error'
     }
   })),
+  on(clearFilterResults, (state) => ({
+    ...state,
+    filtered_seats: {
+      ...state.filtered_seats,
+      seats: null,
+      status: 'initial',
+      error: null
+    }
+  }))
 )
