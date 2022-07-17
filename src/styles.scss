@@ -49,6 +49,15 @@ a {
   }
 }
 
+.btn-check:checked + .btn-outline-primary,
+.btn-check:active + .btn-outline-primary,
+.btn-outline-primary:active,
+.btn-outline-primary.active,
+.btn-outline-primary.dropdown-toggle.show {
+  background-color: $primary-color;
+  border-color: $primary-color;
+}
+
 form {
   .form-control {
     &:focus {
@@ -69,6 +78,26 @@ form {
       content: " *";
       color: $danger-color;
     }
+  }
+}
+
+.card {
+  border-radius: 25px;
+  margin-bottom: 2rem;
+
+  .card-body {
+    h2 {
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid $disabled-color;
+    }
+
+    .row {
+      margin-bottom: 1rem;
+    }
+  }
+
+  input {
+    border-radius: 25px;
   }
 }
 

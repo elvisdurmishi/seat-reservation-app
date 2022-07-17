@@ -22,18 +22,21 @@ import {CookieService} from "ngx-cookie-service";
 import {SmallLoaderComponent} from "./components/common/small-loader/small-loader.component";
 import { DashboardComponent } from './components/dashboard/dashboard/dashboard.component';
 import { ManagerDashboardComponent } from './components/dashboard/manager-dashboard/manager-dashboard.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import {DatepickerComponent} from "./components/common/datepicker/datepicker.component";
 
 @NgModule({
-    declarations: [
-        AppComponent,
-        HeaderComponent,
-        LoginComponent,
-        BreadcrumbComponent,
-        RegisterComponent,
-        SmallLoaderComponent,
-        DashboardComponent,
-        ManagerDashboardComponent,
-    ],
+  declarations: [
+    AppComponent,
+    HeaderComponent,
+    LoginComponent,
+    BreadcrumbComponent,
+    RegisterComponent,
+    SmallLoaderComponent,
+    DashboardComponent,
+    ManagerDashboardComponent,
+    DatepickerComponent,
+  ],
   imports: [
     BrowserModule,
     ReactiveFormsModule,
@@ -46,7 +49,8 @@ import { ManagerDashboardComponent } from './components/dashboard/manager-dashbo
       maxAge: 25,
       logOnly: environment.production,
     }),
-    EffectsModule.forRoot(appEffects)
+    EffectsModule.forRoot(appEffects),
+    NgbModule
   ],
   providers: [CookieService],
   bootstrap: [AppComponent]

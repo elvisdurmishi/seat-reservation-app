@@ -1,13 +1,35 @@
 <div class="row">
   <div class="col-lg-3">
-    <div class="card">
+    <div class="card shadow-sm">
       <div class="card-body">
         <h2>Filters</h2>
+        <div class="row align-items-center">
+          <div class="col-sm-12">
+            <label for="floor-filter">Floor:</label>
+            <input class="form-control" id="floor-filter" type="text" />
+          </div>
+        </div>
+        <div class="row align-items-center">
+          <div class="col-sm-12">
+            <span>Status:</span>
+            <br />
+            <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+              <input type="checkbox" class="btn-check" id="btncheck1" autocomplete="off">
+              <label class="btn btn-outline-primary" for="btncheck1">Free</label>
+
+              <input type="checkbox" class="btn-check" id="btncheck2" autocomplete="off">
+              <label class="btn btn-outline-primary" for="btncheck2">Busy</label>
+            </div>
+          </div>
+        </div>
+        <div class="row align-items-center">
+          <app-datepicker></app-datepicker>
+        </div>
       </div>
     </div>
   </div>
   <div class="col-lg-9">
-    <div class="card">
+    <div class="card shadow-sm">
       <div class="card-body">
         <div class="table-responsive">
           <h2>Seats</h2>
@@ -19,7 +41,7 @@
                 <th>Order</th>
                 <th>Floor</th>
                 <th>Status</th>
-                <th>Actions</th>
+                <th class="text-end">Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -29,10 +51,10 @@
                 <td>{{seat.order}}</td>
                 <td>{{seat.floor}}</td>
                 <td class="cell" [ngClass]="'cell-' + (seat.status == 'free' ? 'success' : 'danger')">{{seat.status}}</td>
-                <td class="d-flex gap-2">
+                <td class="d-flex justify-content-end gap-2">
                   <button class="btn btn-secondary">Edit</button>
                   <button class="btn btn-danger">Delete</button>
-                  <button class="btn btn-info">Reservations</button>
+                  <button class="btn btn-light">Reservations</button>
                 </td>
               </tr>
             </tbody>
