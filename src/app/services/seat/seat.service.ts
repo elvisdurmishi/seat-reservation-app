@@ -4,10 +4,11 @@ import {ServiceHelperService} from "../service-helper.service";
 @Injectable({
   providedIn: 'root'
 })
-export class RoomsService {
+export class SeatService {
+
   constructor(private http:ServiceHelperService) { }
 
-  loadRooms() {
-    return this.http.getRequest("/rooms", "/640");
+  loadSeats() {
+    return this.http.getRequest(`/seats`, "/640")
   }
 }

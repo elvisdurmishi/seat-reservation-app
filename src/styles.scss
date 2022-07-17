@@ -72,6 +72,20 @@ form {
   }
 }
 
+table {
+  .cell {
+    text-align: center;
+
+    &.cell-danger {
+      background-color: $danger-color;
+    }
+
+    &.cell-success {
+      background-color: $success-color;
+    }
+  }
+}
+
 /* HELPERS */
 .flex-center {
   display: flex;

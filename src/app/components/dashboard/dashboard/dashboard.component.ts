@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import {Store} from "@ngrx/store";
+import {AppState} from "../../../ngrx/app.state";
+import {getUser} from "../../../ngrx/auth/auth.selectors";
 
 @Component({
   selector: 'app-dashboard',
@@ -6,7 +9,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-  constructor() { }
+  user$ = this.store.select(getUser);
+  constructor(private store: Store<AppState>) { }
 
   ngOnInit(): void {
   }

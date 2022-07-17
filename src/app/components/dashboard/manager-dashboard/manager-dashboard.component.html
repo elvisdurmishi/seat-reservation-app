@@ -1,0 +1,44 @@
+<div class="row">
+  <div class="col-lg-3">
+    <div class="card">
+      <div class="card-body">
+        <h2>Filters</h2>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-9">
+    <div class="card">
+      <div class="card-body">
+        <div class="table-responsive">
+          <h2>Seats</h2>
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Order</th>
+                <th>Floor</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let seat of seats$ | async; index as i">
+                <td>{{seat.id}}</td>
+                <td>{{seat.name}}</td>
+                <td>{{seat.order}}</td>
+                <td>{{seat.floor}}</td>
+                <td class="cell" [ngClass]="'cell-' + (seat.status == 'free' ? 'success' : 'danger')">{{seat.status}}</td>
+                <td class="d-flex gap-2">
+                  <button class="btn btn-secondary">Edit</button>
+                  <button class="btn btn-danger">Delete</button>
+                  <button class="btn btn-info">Reservations</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

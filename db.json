@@ -25,59 +25,31 @@
       "id": 3
     }
   ],
-  "rooms": [
-    {
-      "id": 1,
-      "name": "First Room"
-    },
-    {
-      "id": 2,
-      "name": "Second Room"
-    }
-  ],
-  "rows": [
-    {
-      "id": 1,
-      "roomId": 1,
-      "order": 1
-    },
-    {
-      "roomId": 1,
-      "order": 3,
-      "id": 2
-    }
-  ],
   "seats": [
     {
       "id": 1,
-      "roomId": 1,
-      "rowOrder": 1,
-      "seatOrder": 1,
-      "status": "free",
-      "availability": {
-        "from": {
-          "year": 2022,
-          "month": 7,
-          "day": 16
-        },
-        "to": {
-          "year": 2022,
-          "month": 7,
-          "day": 22
-        }
-      }
+      "floor": "1st Floor",
+      "name": "A",
+      "order": 1,
+      "status": "free"
     },
     {
       "id": 2,
-      "roomId": 1,
-      "rowOrder": 1,
-      "seatOrder": 2,
-      "status": "free",
-      "availability": {
+      "floor": "1st Floor",
+      "name": "B",
+      "order": 2,
+      "status": "free"
+    }
+  ],
+  "reservations": [
+      {
+        "id": 1,
+        "name": "Elvis",
+        "seatId": 1,
         "from": {
           "year": 2022,
           "month": 7,
-          "day": 16
+          "day": 17
         },
         "to": {
           "year": 2022,
@@ -85,6 +57,5 @@
           "day": 22
         }
       }
-    }
   ]
 }
