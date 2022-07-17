@@ -5,7 +5,12 @@ import {AppState} from "../app.state";
 import {SeatService} from "../../services/seat/seat.service";
 import {catchError, from, map, of, switchMap, withLatestFrom} from "rxjs";
 import {
-  deleteSeat, deleteSeatFailure, deleteSeatSuccess,
+  deleteSeat,
+  deleteSeatFailure,
+  deleteSeatSuccess,
+  loadFilteredSeats,
+  loadFilteredSeatsFailure,
+  loadFilteredSeatsSuccess,
   loadSeats,
   loadSeatsFailure,
   loadSeatsSuccess,
@@ -14,7 +19,6 @@ import {
   saveSeatSuccess
 } from "./seats.actions";
 import {getSeats} from "./seats.selectors";
-import {Seat} from "../../model/Seat";
 
 @Injectable()
 export class SeatsEffects {
@@ -76,6 +80,20 @@ export class SeatsEffects {
             return of(deleteSeatFailure(error));
           })
         ))
+      )
+    )
+  )
+
+  filterSeats$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(loadFilteredSeats),
+      switchMap(({payload}) =>
+        from(this.seatService.loadFilteredSeats(payload.filters)).pipe(
+          map((data) => {
+            return loadFilteredSeatsSuccess({payload: {seats: data}})
+          }),
+          catchError(() => of(loadFilteredSeatsFailure()))
+        )
       )
     )
   )

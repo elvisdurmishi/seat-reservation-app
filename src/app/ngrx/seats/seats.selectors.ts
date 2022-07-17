@@ -7,6 +7,10 @@ export const getSeats = createSelector(
   selectSeats,
   (state: SeatsState) => state.seats
 )
+export const getFilteredSeats = createSelector(
+  selectSeats,
+  (state: SeatsState) => state.filtered_seats.seats
+)
 export const getSeatsStatus = createSelector(
   selectSeats,
   (state: SeatsState) => state.status

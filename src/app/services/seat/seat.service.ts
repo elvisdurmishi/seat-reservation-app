@@ -24,4 +24,20 @@ export class SeatService {
   deleteSeat(seatId: number) {
     return this.http.deleteRequest(`/seats/${seatId}`);
   }
+
+  loadFilteredSeats(filters: any) {
+    return this.http.getRequest(`/seats` + this.buildQueryString(filters))
+  }
+
+  private buildQueryString(filters: any) {
+    let query = '';
+
+    Object.entries(filters).forEach(([key, value]) => {
+      if(value && value !== 'all') {
+        query += query.length > 0 ? `&${key}=${value}` : `?${key}=${value}`
+      }
+    })
+
+    return query;
+  }
 }

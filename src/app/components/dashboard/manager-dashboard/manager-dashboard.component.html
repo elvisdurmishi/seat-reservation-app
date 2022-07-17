@@ -3,32 +3,42 @@
     <div class="card shadow-sm">
       <div class="card-body">
         <h2>Filters</h2>
-        <div class="row align-items-center">
-          <div class="col-sm-12">
-            <span>Floor:</span>
-            <br />
-            <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
-              <input type="checkbox" class="btn-check" id="main-check" autocomplete="off">
-              <label class="btn btn-outline-primary" for="main-check">Main Floor</label>
+        <form [formGroup]="filtersForm">
+          <div class="row align-items-center">
+            <div class="col-sm-12">
+              <span>Floor:</span>
+              <br />
+              <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+                <input type="radio" class="btn-check" id="all-floors-check" autocomplete="off" value="all" formControlName="location">
+                <label class="btn btn-outline-primary" for="all-floors-check">All</label>
 
-              <input type="checkbox" class="btn-check" id="second-check" autocomplete="off">
-              <label class="btn btn-outline-primary" for="second-check">Second Floor</label>
+                <input type="radio" class="btn-check" id="main-check" autocomplete="off" value="main" formControlName="location">
+                <label class="btn btn-outline-primary" for="main-check">Main Floor</label>
+
+                <input type="radio" class="btn-check" id="second-check" autocomplete="off" value="second" formControlName="location">
+                <label class="btn btn-outline-primary" for="second-check">Second Floor</label>
+
+
+              </div>
             </div>
           </div>
-        </div>
-        <div class="row align-items-center">
-          <div class="col-sm-12">
-            <span>Status:</span>
-            <br />
-            <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
-              <input type="checkbox" class="btn-check" id="btncheck1" autocomplete="off">
-              <label class="btn btn-outline-primary" for="btncheck1">Free</label>
+          <div class="row align-items-center">
+            <div class="col-sm-12">
+              <span>Status:</span>
+              <br />
+              <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+                <input type="radio" class="btn-check" id="all-check" autocomplete="off" value="all" formControlName="status">
+                <label class="btn btn-outline-primary" for="all-check">All</label>
 
-              <input type="checkbox" class="btn-check" id="btncheck2" autocomplete="off">
-              <label class="btn btn-outline-primary" for="btncheck2">Busy</label>
+                <input type="radio" class="btn-check" id="free-check" autocomplete="off" value="free" formControlName="status">
+                <label class="btn btn-outline-primary" for="free-check">Free</label>
+
+                <input type="radio" class="btn-check" id="busy-check" autocomplete="off" value="busy" formControlName="status">
+                <label class="btn btn-outline-primary" for="busy-check">Busy</label>
+              </div>
             </div>
           </div>
-        </div>
+        </form>
         <div class="row align-items-center">
           <app-datepicker></app-datepicker>
         </div>
@@ -51,7 +61,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let seat of seats$ | async; index as i">
+              <tr *ngFor="let seat of seats$ | async">
                 <td>{{seat.id}}</td>
                 <td>{{seat.number}}</td>
                 <td>{{seat.location | titlecase}} Floor</td>

@@ -68,7 +68,6 @@ export class SeatModalComponent implements OnInit {
   }
 
   hasErrors(){
-    console.log(this.location?.errors);
     return Object.entries(this.seatForm.getRawValue()).some(([key]) => {
       return !this.seatForm.get(key)?.valid;
     })

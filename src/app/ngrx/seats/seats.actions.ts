@@ -43,3 +43,18 @@ export const deleteSeatFailure = createAction(
   "[Manager Dashboard] Delete Seat Failure",
   props<{ error: string }>()
 )
+
+export const loadFilteredSeats = createAction(
+  "[Manager Dashboard] Load Filtered Seats",
+  props<{ payload: { filters: any } }>()
+)
+
+export const loadFilteredSeatsSuccess = createAction(
+  "[Manager Dashboard] Load Filtered Seats Success",
+  props<{ payload: { seats: Seat[] } }>()
+)
+
+
+export const loadFilteredSeatsFailure = createAction(
+  "[Dashboard] Load Filtered Seats Failure",
+)

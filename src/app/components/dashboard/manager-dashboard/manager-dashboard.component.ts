@@ -1,21 +1,47 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Store} from "@ngrx/store";
 import {AppState} from "../../../ngrx/app.state";
-import {getSeats} from "../../../ngrx/seats/seats.selectors";
-import {deleteSeat, loadSeats} from "../../../ngrx/seats/seats.actions";
+import {getFilteredSeats, getSeats} from "../../../ngrx/seats/seats.selectors";
+import {
+  deleteSeat,
+  loadFilteredSeats,
+  loadSeats
+} from "../../../ngrx/seats/seats.actions";
 import {Seat} from "../../../model/Seat";
 import {openSeatModal} from "../../../ngrx/modals/modals.actions";
+import {FormBuilder, FormGroup} from "@angular/forms";
+import {iif, map, mergeMap, of} from "rxjs";
 
 @Component({
   selector: 'app-manager-dashboard',
   templateUrl: './manager-dashboard.component.html',
   styleUrls: ['./manager-dashboard.component.scss']
 })
-export class ManagerDashboardComponent implements OnInit {
-  seats$ = this.store.select(getSeats);
+export class ManagerDashboardComponent implements OnInit, OnDestroy {
+  seats$ = this.store.select(getFilteredSeats).pipe(
+    mergeMap((seats) =>
+      iif(() => seats === null, this.store.select(getSeats), of(seats))
+    )
+  );
+  filtersForm: FormGroup;
+  seatFilters$: any;
 
-  constructor(private store: Store<AppState>) {
+  constructor(
+    private store: Store<AppState>,
+    private formBuilder: FormBuilder,
+    ) {
     this.store.dispatch(loadSeats());
+
+    this.filtersForm = this.formBuilder.group({
+      location: ['all'],
+      status: ['all'],
+    })
+
+    this.seatFilters$ = this.filtersForm.valueChanges.pipe(
+      map((filters) => {
+        return this.store.dispatch(loadFilteredSeats({payload: {filters: filters}}));
+      })
+    ).subscribe();
   }
 
   ngOnInit(): void {
@@ -27,5 +53,9 @@ export class ManagerDashboardComponent implements OnInit {
 
   deleteSeat(seat: Seat) {
     this.store.dispatch(deleteSeat({payload: {seatId: seat.id}}));
+  }
+
+  ngOnDestroy(): void {
+    this.seatFilters$.unsubscribe();
   }
 }
