@@ -16,7 +16,6 @@ import {
 import {catchError, from, map, of, switchMap, tap} from "rxjs";
 import {CookieService} from "ngx-cookie-service";
 import {Router} from "@angular/router";
-import {loadRooms} from "../rooms/rooms.actions";
 
 @Injectable()
 export class AuthEffects {
@@ -35,11 +34,13 @@ export class AuthEffects {
         from(this.authService.login(payload.email, payload.password)).pipe(
           map((data) => {
             this.cookieService.set("accessToken", data.accessToken);
-            loadRooms();
             return loginSuccess({payload: {user: data.user, accessToken: data.accessToken}})
           }),
           tap(() => this.router.navigateByUrl("/")),
-          catchError((error) => of(loginFailure(error)))
+          catchError((error) => {
+            this.cookieService.delete("accessToken");
+            return of(loginFailure(error));
+          })
         )
       )
     )

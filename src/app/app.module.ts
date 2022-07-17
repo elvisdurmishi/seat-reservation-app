@@ -21,7 +21,6 @@ import {ReactiveFormsModule} from "@angular/forms";
 import {CookieService} from "ngx-cookie-service";
 import {SmallLoaderComponent} from "./components/common/small-loader/small-loader.component";
 import { DashboardComponent } from './components/dashboard/dashboard/dashboard.component';
-import { RoomListComponent } from './components/room/room-list/room-list.component';
 
 @NgModule({
     declarations: [
@@ -32,7 +31,6 @@ import { RoomListComponent } from './components/room/room-list/room-list.compone
         RegisterComponent,
         SmallLoaderComponent,
         DashboardComponent,
-        RoomListComponent,
     ],
   imports: [
     BrowserModule,

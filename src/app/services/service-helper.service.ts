@@ -38,7 +38,7 @@ export class ServiceHelperService {
     return this.http.post(url + endpoint, body, this.httpOptions());
   }
 
-  deleteRequest(endpoint: string, body: object, authProtection: string | null = null, model: any = null) {
+  deleteRequest(endpoint: string, authProtection: string | null = null, model: any = null) {
     let url = this.handleAuthProtectionRoutes(authProtection);
 
     if(model) {

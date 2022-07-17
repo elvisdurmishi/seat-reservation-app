@@ -15,28 +15,36 @@
       "name": "Manager",
       "bookings": [],
       "id": 2
+    },
+    {
+      "email": "safasfa@mailc.com",
+      "password": "$2a$10$Amb2EdN6DRTULMadfIZCuOZN9W9l8xfi9Sd.B/NLv77jqQcd8FWX.",
+      "role": "booker",
+      "name": "testtasfsafa",
+      "bookings": [],
+      "id": 3
     }
   ],
   "rooms": [
     {
       "id": 1,
-      "name": "First Room",
-      "rows": [
-        {
-          "id": 1,
-          "order": 1
-        }
-      ]
+      "name": "First Room"
     },
     {
       "id": 2,
-      "name": "Second Room",
-      "rows": [
-        {
-          "id": 2,
-          "order": 1
-        }
-      ]
+      "name": "Second Room"
+    }
+  ],
+  "rows": [
+    {
+      "id": 1,
+      "roomId": 1,
+      "order": 1
+    },
+    {
+      "roomId": 1,
+      "order": 3,
+      "id": 2
     }
   ],
   "seats": [

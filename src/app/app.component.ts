@@ -3,7 +3,6 @@ import {Store} from "@ngrx/store";
 import {loadAccessTokenCookie, loadUser} from "./ngrx/auth/auth.actions";
 import {CookieService} from "ngx-cookie-service";
 import {parseJwt} from "./utility/utility.functions";
-import {loadRooms} from "./ngrx/rooms/rooms.actions";
 
 @Component({
   selector: 'app-root',
@@ -22,7 +21,6 @@ export class AppComponent implements OnInit {
       this.store.dispatch(loadAccessTokenCookie({payload: {accessToken: accessToken}}))
       let parsedToken = parseJwt(accessToken);
       this.store.dispatch(loadUser({payload: {userId: parsedToken.sub}}));
-      this.store.dispatch(loadRooms());
     }
   }
 }
