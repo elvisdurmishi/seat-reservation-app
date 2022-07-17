@@ -16,7 +16,6 @@ export class SeatModalComponent implements OnInit {
   seatForm: FormGroup;
 
   ngOnInit(): void {
-    console.log("seat", this.seat);
     const {seat} = this;
     if(seat) {
       this.seatForm.get('floor')?.setValue(seat.floor);
@@ -25,7 +24,6 @@ export class SeatModalComponent implements OnInit {
       this.seatForm.get('status')?.setValue(seat.status);
     }
 
-    console.log("form now", this.seatForm.getRawValue());
   }
 
   constructor(
