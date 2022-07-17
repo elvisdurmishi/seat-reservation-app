@@ -36,7 +36,7 @@ export class SeatModalComponent implements OnInit {
 
     this.seatForm = this.formBuilder.group({
       number: [1, {validators: [Validators.required, Validators.min(1), Validators.max(100)]}],
-      location: ['', {validators: [Validators.required, Validators.minLength(3)]}],
+      location: ['main'],
       status: ['free'],
     })
   }

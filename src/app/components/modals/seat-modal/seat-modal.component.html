@@ -21,16 +21,18 @@
         </div>
       </div>
       <div class="col-sm-12 d-flex flex-column">
-        <label for="seat-order">Location</label>
-        <input id="seat-order" type="text" name="location" class="form-control" formControlName="location" />
-        <div *ngIf="location?.invalid && (location?.dirty || location?.touched)"
-             class="text-danger px-0">
-          <div *ngIf="location?.errors?.['required']">
-            Location is required.
-          </div>
-          <div *ngIf="location?.errors?.['minlength']">
-            Location should be at least 3 characters long.
-          </div>
+        <label>Location</label>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" id="main-location-seat" value="main" formControlName="location">
+          <label class="form-check-label" for="main-location-seat">
+            Main Floor
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" id="second-location-seat" value="second" formControlName="location">
+          <label class="form-check-label" for="second-location-seat">
+            Second Floor
+          </label>
         </div>
       </div>
       <div class="col-sm-12 d-flex flex-column">

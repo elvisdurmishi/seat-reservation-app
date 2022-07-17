@@ -5,8 +5,15 @@
         <h2>Filters</h2>
         <div class="row align-items-center">
           <div class="col-sm-12">
-            <label for="floor-filter">Floor:</label>
-            <input class="form-control" id="floor-filter" type="text" />
+            <span>Floor:</span>
+            <br />
+            <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+              <input type="checkbox" class="btn-check" id="main-check" autocomplete="off">
+              <label class="btn btn-outline-primary" for="main-check">Main Floor</label>
+
+              <input type="checkbox" class="btn-check" id="second-check" autocomplete="off">
+              <label class="btn btn-outline-primary" for="second-check">Second Floor</label>
+            </div>
           </div>
         </div>
         <div class="row align-items-center">
@@ -47,7 +54,7 @@
               <tr *ngFor="let seat of seats$ | async; index as i">
                 <td>{{seat.id}}</td>
                 <td>{{seat.number}}</td>
-                <td>{{seat.location}}</td>
+                <td>{{seat.location | titlecase}} Floor</td>
                 <td class="cell" [ngClass]="'cell-' + (seat.status == 'free' ? 'success' : 'danger')">{{seat.status}}</td>
                 <td class="d-flex justify-content-end gap-2">
                   <button class="btn btn-secondary" (click)="editSeat(seat)">Edit</button>
