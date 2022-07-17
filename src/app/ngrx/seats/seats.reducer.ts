@@ -1,6 +1,6 @@
 import {Seat} from "../../model/Seat";
 import {createReducer, on} from "@ngrx/store";
-import {loadSeats, loadSeatsFailure, loadSeatsSuccess, saveSeatSuccess} from "./seats.actions";
+import {deleteSeatSuccess, loadSeats, loadSeatsFailure, loadSeatsSuccess, saveSeatSuccess} from "./seats.actions";
 
 export interface SeatsState {
   seats: Seat[] | null,
@@ -32,6 +32,10 @@ export const seatsReducer = createReducer(
     status: 'error'
   })),
   on(saveSeatSuccess, (state, {payload}) => ({
+    ...state,
+    seats: payload.seats
+  })),
+  on(deleteSeatSuccess, (state, {payload}) => ({
     ...state,
     seats: payload.seats
   }))

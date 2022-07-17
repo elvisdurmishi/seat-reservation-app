@@ -20,4 +20,8 @@ export class SeatService {
 
     return this.http.postRequest(`/seats`, seat);
   }
+
+  deleteSeat(seatId: number) {
+    return this.http.deleteRequest(`/seats/${seatId}`);
+  }
 }

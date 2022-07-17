@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Store} from "@ngrx/store";
 import {AppState} from "../../../ngrx/app.state";
 import {getSeats} from "../../../ngrx/seats/seats.selectors";
-import {loadSeats} from "../../../ngrx/seats/seats.actions";
+import {deleteSeat, loadSeats} from "../../../ngrx/seats/seats.actions";
 import {Seat} from "../../../model/Seat";
 import {openSeatModal} from "../../../ngrx/modals/modals.actions";
 
@@ -23,5 +23,9 @@ export class ManagerDashboardComponent implements OnInit {
 
   editSeat(seat: Seat) {
     this.store.dispatch(openSeatModal({payload: {seat: seat}}))
+  }
+
+  deleteSeat(seat: Seat) {
+    this.store.dispatch(deleteSeat({payload: {seatId: seat.id}}));
   }
 }

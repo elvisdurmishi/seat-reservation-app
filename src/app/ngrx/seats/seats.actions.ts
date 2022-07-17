@@ -28,3 +28,18 @@ export const saveSeatFailure = createAction(
   "[Manager Dashboard] Save Seat Failure",
   props<{ error: string }>()
 )
+
+export const deleteSeat = createAction(
+  "[Manager Dashboard] Delete Seat",
+  props<{ payload: {seatId: number}}>()
+)
+
+export const deleteSeatSuccess = createAction(
+  "[Manager Dashboard] Delete Seat Success",
+  props<{ payload: {seats: Seat[]} }>()
+)
+
+export const deleteSeatFailure = createAction(
+  "[Manager Dashboard] Delete Seat Failure",
+  props<{ error: string }>()
+)

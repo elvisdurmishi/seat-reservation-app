@@ -5,6 +5,7 @@ import {AppState} from "../app.state";
 import {SeatService} from "../../services/seat/seat.service";
 import {catchError, from, map, of, switchMap, withLatestFrom} from "rxjs";
 import {
+  deleteSeat, deleteSeatFailure, deleteSeatSuccess,
   loadSeats,
   loadSeatsFailure,
   loadSeatsSuccess,
@@ -44,15 +45,35 @@ export class SeatsEffects {
       switchMap(([{payload}, seats]) =>
         from(this.seatService.saveSeat(payload.seat).pipe(
           map((data) => {
-            let changedList = seats ? seats?.map(s => s.id === data.id ? data : s) : [];
+            let changedList = seats ? seats : [];
             if(!payload.seat.id) {
               changedList = [...changedList, data];
+            } else {
+              changedList = seats ? seats?.map(s => s.id === data.id ? data : s) : [];
             }
+
             return saveSeatSuccess({payload: {seats: changedList}});
           }),
           catchError((error) => {
-            console.log("error", error);
             return of(saveSeatFailure(error));
+          })
+        ))
+      )
+    )
+  )
+
+  deleteSeat$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(deleteSeat),
+      withLatestFrom(this.store.select(getSeats)),
+      switchMap(([{payload}, seats]) =>
+        from(this.seatService.deleteSeat(payload.seatId).pipe(
+          map(() => {
+            let changedList = seats ? seats?.filter(s => s.id !== payload.seatId) : [];
+            return deleteSeatSuccess({payload: {seats: changedList}});
+          }),
+          catchError((error) => {
+            return of(deleteSeatFailure(error));
           })
         ))
       )

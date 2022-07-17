@@ -27,33 +27,23 @@
   ],
   "seats": [
     {
-      "id": 1,
-      "number": 1,
-      "location": "1st Floor",
-      "status": "busy"
+      "number": 2,
+      "location": "2nd Floor",
+      "status": "busy",
+      "id": 2
     },
     {
-      "number": 2,
+      "number": 3,
       "location": "1st Floor",
       "status": "free",
-      "id": 2
+      "id": 3
+    },
+    {
+      "number": 1,
+      "location": "1st Floor",
+      "status": "free",
+      "id": 4
     }
   ],
-  "reservations": [
-    {
-      "id": 1,
-      "name": "Elvis",
-      "seatId": 1,
-      "from": {
-        "year": 2022,
-        "month": 7,
-        "day": 17
-      },
-      "to": {
-        "year": 2022,
-        "month": 7,
-        "day": 22
-      }
-    }
-  ]
+  "reservations": []
 }
