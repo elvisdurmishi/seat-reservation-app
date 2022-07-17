@@ -1,6 +1,6 @@
 import {Seat} from "../../model/Seat";
 import {createReducer, on} from "@ngrx/store";
-import {loadSeats, loadSeatsFailure, loadSeatsSuccess} from "./seats.actions";
+import {loadSeats, loadSeatsFailure, loadSeatsSuccess, saveSeatSuccess} from "./seats.actions";
 
 export interface SeatsState {
   seats: Seat[] | null,
@@ -31,4 +31,8 @@ export const seatsReducer = createReducer(
     error: `There was an error loading the data.`,
     status: 'error'
   })),
+  on(saveSeatSuccess, (state, {payload}) => ({
+    ...state,
+    seats: payload.seats
+  }))
 )

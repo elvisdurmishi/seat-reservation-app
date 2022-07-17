@@ -5,30 +5,30 @@
   </button>
 </div>
 <div class="modal-body">
-  <form class="form-group">
+  <form class="form-group" [formGroup]="seatForm">
     <div class="row gap-3">
       <div class="col-sm-12 d-flex flex-column">
         <label for="seat-name">Name</label>
-        <input id="seat-name" name="name" class="form-control" />
+        <input id="seat-name" name="name" class="form-control" formControlName="name" />
       </div>
       <div class="col-sm-12 d-flex flex-column">
         <label for="seat-order">Order</label>
-        <input id="seat-order" name="number" class="form-control" />
+        <input id="seat-order" name="number" class="form-control" formControlName="order" />
       </div>
       <div class="col-sm-12 d-flex flex-column">
         <label for="seat-floor">Floor</label>
-        <input id="seat-floor" name="name" class="form-control" />
+        <input id="seat-floor" name="name" class="form-control" formControlName="floor" />
       </div>
       <div class="col-sm-12 d-flex flex-column">
         <label>Status</label>
         <div class="form-check">
-          <input class="form-check-input" type="radio" name="free" id="free-seat" checked>
+          <input class="form-check-input" type="radio" id="free-seat" value="free" formControlName="status">
           <label class="form-check-label" for="free-seat">
             Free
           </label>
         </div>
         <div class="form-check">
-          <input class="form-check-input" type="radio" name="busy" id="busy-seat">
+          <input class="form-check-input" type="radio" id="busy-seat" value="busy" formControlName="status">
           <label class="form-check-label" for="busy-seat">
             Busy
           </label>
@@ -39,5 +39,5 @@
 </div>
 <div class="modal-footer">
   <button type="button" class="btn btn-outline-dark" (click)="closeModal()">Close</button>
-  <button type="button" class="btn btn-success" (click)="closeModal()">Save</button>
+  <button type="button" class="btn btn-success" (click)="saveSeat()">Save</button>
 </div>

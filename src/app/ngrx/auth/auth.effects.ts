@@ -76,7 +76,10 @@ export class AuthEffects {
           map((data) => {
             return loadUserSuccess({payload: {user: data}})
           }),
-          catchError((error) => of(loadUserFailure(error)))
+          catchError((error) => {
+            this.cookieService.delete("accessToken");
+            return of(loadUserFailure(error));
+          })
         )
       )
     )

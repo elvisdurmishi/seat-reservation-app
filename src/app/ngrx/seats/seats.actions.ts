@@ -13,3 +13,18 @@ export const loadSeatsSuccess = createAction(
 export const loadSeatsFailure = createAction(
   "[Dashboard] Load Seats Failure",
 )
+
+export const saveSeat = createAction(
+  "[Manager Dashboard] Save Seat",
+  props<{ payload: {seat: Seat} }>()
+)
+
+export const saveSeatSuccess = createAction(
+  "[Manager Dashboard] Save Seat Success",
+  props<{ payload: {seats: Seat[]} }>()
+)
+
+export const saveSeatFailure = createAction(
+  "[Manager Dashboard] Save Seat Failure",
+  props<{ error: string }>()
+)

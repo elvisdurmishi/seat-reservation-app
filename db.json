@@ -29,20 +29,6 @@
     {
       "id": 1,
       "floor": "1st Floor",
-      "name": "A",
-      "order": 1,
-      "status": "free"
-    },
-    {
-      "id": 2,
-      "floor": "1st Floor",
-      "name": "B",
-      "order": 2,
-      "status": "free"
-    },
-    {
-      "id": 1,
-      "floor": "1st Floor",
       "name": "C",
       "order": 3,
       "status": "busy"
@@ -53,23 +39,51 @@
       "name": "D",
       "order": 4,
       "status": "busy"
+    },
+    {
+      "floor": "1st Floor",
+      "name": "F",
+      "order": "5",
+      "status": "free",
+      "id": 3
+    },
+    {
+      "floor": "1st Floor",
+      "name": "Heyyy",
+      "order": "55",
+      "status": "free",
+      "id": 4
+    },
+    {
+      "floor": "1st Floor",
+      "name": "Test",
+      "order": "44",
+      "status": "busy",
+      "id": 5
+    },
+    {
+      "floor": "1st Floor",
+      "name": "S",
+      "order": "44",
+      "status": "free",
+      "id": 6
     }
   ],
   "reservations": [
-      {
-        "id": 1,
-        "name": "Elvis",
-        "seatId": 1,
-        "from": {
-          "year": 2022,
-          "month": 7,
-          "day": 17
-        },
-        "to": {
-          "year": 2022,
-          "month": 7,
-          "day": 22
-        }
+    {
+      "id": 1,
+      "name": "Elvis",
+      "seatId": 1,
+      "from": {
+        "year": 2022,
+        "month": 7,
+        "day": 17
+      },
+      "to": {
+        "year": 2022,
+        "month": 7,
+        "day": 22
       }
+    }
   ]
 }

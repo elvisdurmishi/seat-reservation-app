@@ -4,6 +4,7 @@ import {Store} from "@ngrx/store";
 import {AppState} from "../../../ngrx/app.state";
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {Seat} from "../../../model/Seat";
+import {saveSeat} from "../../../ngrx/seats/seats.actions";
 
 @Component({
   selector: 'app-seat-modal',
@@ -23,7 +24,6 @@ export class SeatModalComponent implements OnInit {
       this.seatForm.get('order')?.setValue(seat.order);
       this.seatForm.get('status')?.setValue(seat.status);
     }
-
   }
 
   constructor(
@@ -45,5 +45,11 @@ export class SeatModalComponent implements OnInit {
 
   closeModal() {
     this.activeModal.close();
+  }
+
+  saveSeat() {
+    let seat = Object.assign({}, this.seat, this.seatForm.getRawValue());
+    this.store.dispatch(saveSeat({payload: {seat: seat}}));
+    this.closeModal();
   }
 }
