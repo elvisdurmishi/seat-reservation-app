@@ -19,9 +19,8 @@ export class SeatModalComponent implements OnInit {
   ngOnInit(): void {
     const {seat} = this;
     if(seat) {
-      this.seatForm.get('floor')?.setValue(seat.floor);
-      this.seatForm.get('name')?.setValue(seat.name);
-      this.seatForm.get('order')?.setValue(seat.order);
+      this.seatForm.get('number')?.setValue(seat.number);
+      this.seatForm.get('location')?.setValue(seat.location);
       this.seatForm.get('status')?.setValue(seat.status);
     }
   }
@@ -36,9 +35,8 @@ export class SeatModalComponent implements OnInit {
     config.keyboard = false;
 
     this.seatForm = this.formBuilder.group({
-      floor: [''],
-      name: [''],
-      order: [1],
+      number: [''],
+      location: [''],
       status: ['free'],
     })
   }

@@ -1,7 +1,6 @@
 export interface Seat {
   id: number,
-  floor: string,
-  name: string,
-  order: number,
+  number: number,
+  location: string,
   status: "free" | "busy"
 }

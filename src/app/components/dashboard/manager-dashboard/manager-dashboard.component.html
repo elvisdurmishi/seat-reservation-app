@@ -37,9 +37,8 @@
             <thead>
               <tr>
                 <th>Id</th>
-                <th>Name</th>
-                <th>Order</th>
-                <th>Floor</th>
+                <th>Number</th>
+                <th>Location</th>
                 <th>Status</th>
                 <th class="text-end">Actions</th>
               </tr>
@@ -47,9 +46,8 @@
             <tbody>
               <tr *ngFor="let seat of seats$ | async; index as i">
                 <td>{{seat.id}}</td>
-                <td>{{seat.name}}</td>
-                <td>{{seat.order}}</td>
-                <td>{{seat.floor}}</td>
+                <td>{{seat.number}}</td>
+                <td>{{seat.location}}</td>
                 <td class="cell" [ngClass]="'cell-' + (seat.status == 'free' ? 'success' : 'danger')">{{seat.status}}</td>
                 <td class="d-flex justify-content-end gap-2">
                   <button class="btn btn-secondary" (click)="editSeat(seat)">Edit</button>

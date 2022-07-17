@@ -28,45 +28,15 @@
   "seats": [
     {
       "id": 1,
-      "floor": "1st Floor",
-      "name": "C",
-      "order": 3,
+      "number": 1,
+      "location": "1st Floor",
       "status": "busy"
     },
     {
-      "id": 2,
-      "floor": "1st Floor",
-      "name": "D",
-      "order": 4,
-      "status": "busy"
-    },
-    {
-      "floor": "1st Floor",
-      "name": "F",
-      "order": "5",
+      "number": 2,
+      "location": "1st Floor",
       "status": "free",
-      "id": 3
-    },
-    {
-      "floor": "1st Floor",
-      "name": "Heyyy",
-      "order": "55",
-      "status": "free",
-      "id": 4
-    },
-    {
-      "floor": "1st Floor",
-      "name": "Test",
-      "order": "44",
-      "status": "busy",
-      "id": 5
-    },
-    {
-      "floor": "1st Floor",
-      "name": "S",
-      "order": "44",
-      "status": "free",
-      "id": 6
+      "id": 2
     }
   ],
   "reservations": [

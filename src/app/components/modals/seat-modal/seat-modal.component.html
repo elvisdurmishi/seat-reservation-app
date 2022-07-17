@@ -8,16 +8,12 @@
   <form class="form-group" [formGroup]="seatForm">
     <div class="row gap-3">
       <div class="col-sm-12 d-flex flex-column">
-        <label for="seat-name">Name</label>
-        <input id="seat-name" name="name" class="form-control" formControlName="name" />
+        <label for="seat-name">Number</label>
+        <input id="seat-name" type="number" name="number" class="form-control" formControlName="number" />
       </div>
       <div class="col-sm-12 d-flex flex-column">
-        <label for="seat-order">Order</label>
-        <input id="seat-order" name="number" class="form-control" formControlName="order" />
-      </div>
-      <div class="col-sm-12 d-flex flex-column">
-        <label for="seat-floor">Floor</label>
-        <input id="seat-floor" name="name" class="form-control" formControlName="floor" />
+        <label for="seat-order">Location</label>
+        <input id="seat-order" type="text" name="location" class="form-control" formControlName="location" />
       </div>
       <div class="col-sm-12 d-flex flex-column">
         <label>Status</label>
