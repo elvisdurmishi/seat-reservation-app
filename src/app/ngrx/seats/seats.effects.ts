@@ -10,7 +10,7 @@ import {
   deleteSeatSuccess,
   loadFilteredSeats,
   loadFilteredSeatsFailure,
-  loadFilteredSeatsSuccess,
+  loadFilteredSeatsSuccess, loadSeatBookings, loadSeatBookingsFailure, loadSeatBookingsSuccess,
   loadSeats,
   loadSeatsFailure,
   loadSeatsSuccess,
@@ -19,6 +19,7 @@ import {
   saveSeatSuccess
 } from "./seats.actions";
 import {getSeats} from "./seats.selectors";
+import {BookingService} from "../../services/booking/booking.service";
 
 @Injectable()
 export class SeatsEffects {
@@ -26,6 +27,7 @@ export class SeatsEffects {
     private actions$: Actions,
     private store: Store<AppState>,
     private seatService: SeatService,
+    private bookingService: BookingService,
   ) {}
 
   loadSeats$ = createEffect(() =>
@@ -93,6 +95,20 @@ export class SeatsEffects {
             return loadFilteredSeatsSuccess({payload: {seats: data}})
           }),
           catchError(() => of(loadFilteredSeatsFailure()))
+        )
+      )
+    )
+  )
+
+  seatBookings$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(loadSeatBookings),
+      switchMap(({payload}) =>
+        from(this.bookingService.loadSeatBookings(payload.seatId)).pipe(
+          map((data) => {
+            return loadSeatBookingsSuccess({payload: {bookings: data}})
+          }),
+          catchError((error) => of(loadSeatBookingsFailure(error)))
         )
       )
     )

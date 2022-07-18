@@ -1,5 +1,6 @@
 import {createAction, props} from "@ngrx/store";
 import {Seat} from "../../model/Seat";
+import {Booking} from "../../model/Booking";
 
 export const loadSeats = createAction(
   "[Dashboard] Load Seats",
@@ -61,4 +62,19 @@ export const loadFilteredSeatsFailure = createAction(
 
 export const clearFilterResults = createAction(
   "[Manager Dashboard] Clear Filter Results",
+)
+
+export const loadSeatBookings = createAction(
+  "[Dashboard] Load Seat Bookings",
+  props<{payload: { seatId: number }}>()
+)
+
+export const loadSeatBookingsSuccess = createAction(
+  "[Dashboard] Load Seat Bookings Success",
+  props<{payload: { bookings: Booking[] }}>()
+)
+
+export const loadSeatBookingsFailure = createAction(
+  "[Dashboard] Load Seat Bookings Failure",
+  props<{ error: string }>()
 )

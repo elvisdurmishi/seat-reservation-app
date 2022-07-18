@@ -3,12 +3,13 @@ import {createReducer, on} from "@ngrx/store";
 import {
   clearFilterResults,
   deleteSeatSuccess,
-  loadFilteredSeats, loadFilteredSeatsSuccess,
+  loadFilteredSeats, loadFilteredSeatsSuccess, loadSeatBookings, loadSeatBookingsFailure, loadSeatBookingsSuccess,
   loadSeats,
   loadSeatsFailure,
   loadSeatsSuccess,
   saveSeatSuccess
 } from "./seats.actions";
+import {Booking} from "../../model/Booking";
 
 export interface SeatsState {
   seats: Seat[] | null,
@@ -16,6 +17,12 @@ export interface SeatsState {
   status: 'initial' | 'loading' | 'error' | 'success',
   filtered_seats: {
     seats: Seat[] | null,
+    error: string | null,
+    status: 'initial' | 'loading' | 'error' | 'success',
+  },
+  selected_seat: {
+    id?: number,
+    bookings: Booking[] | null,
     error: string | null,
     status: 'initial' | 'loading' | 'error' | 'success',
   }
@@ -27,6 +34,11 @@ export const initialState: SeatsState = {
   status: 'initial',
   filtered_seats: {
     seats: null,
+    error: null,
+    status: 'initial'
+  },
+  selected_seat: {
+    bookings: null,
     error: null,
     status: 'initial'
   }
@@ -89,5 +101,29 @@ export const seatsReducer = createReducer(
       status: 'initial',
       error: null
     }
-  }))
+  })),
+  on(loadSeatBookings, (state) => ({
+    ...state,
+    selected_seat: {
+      ...state.selected_seat,
+      status: 'loading'
+    }
+  })),
+  on(loadSeatBookingsSuccess, (state, {payload}) => ({
+    ...state,
+    selected_seat: {
+      ...state.selected_seat,
+      bookings: payload.bookings,
+      status: 'success',
+      error: null
+    }
+  })),
+  on(loadSeatBookingsFailure, (state, {error}) => ({
+    ...state,
+    selected_seat: {
+      ...state.selected_seat,
+      status: 'error',
+      error: error
+    }
+  })),
 )

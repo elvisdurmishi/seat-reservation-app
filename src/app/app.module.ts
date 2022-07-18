@@ -26,6 +26,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {DatepickerComponent} from "./components/common/datepicker/datepicker.component";
 import { SeatModalComponent } from './components/modals/seat-modal/seat-modal.component';
 import { ErrorComponent } from './components/common/error/error.component';
+import {BookingsComponent} from "./components/dashboard/manager-dashboard/bookings/bookings.component";
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { ErrorComponent } from './components/common/error/error.component';
     DatepickerComponent,
     SeatModalComponent,
     ErrorComponent,
+    BookingsComponent,
   ],
   imports: [
     BrowserModule,

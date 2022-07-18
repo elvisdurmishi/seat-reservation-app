@@ -11,4 +11,8 @@ export class BookingService {
   loadBookings() {
     return this.http.getRequest(`/bookings`, "/640")
   }
+
+  loadSeatBookings(seatId: number) {
+    return this.http.getRequest(`/bookings?seatId=${seatId}`, '/640')
+  }
 }

@@ -109,4 +109,8 @@ export class ManagerDashboardComponent implements OnInit, OnDestroy {
 
     return today > fromDate && today < toDate;
   }
+
+  openSeatModal() {
+    this.store.dispatch(openSeatModal({payload: {seat: null}}))
+  }
 }

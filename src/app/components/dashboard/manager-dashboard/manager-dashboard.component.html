@@ -39,9 +39,6 @@
             </div>
           </div>
         </form>
-        <div class="row align-items-center">
-          <app-datepicker></app-datepicker>
-        </div>
       </div>
     </div>
   </div>
@@ -49,7 +46,12 @@
     <div class="card shadow-sm">
       <div class="card-body">
         <div class="table-responsive">
-          <h2>Seats</h2>
+          <div class="d-flex justify-content-between align-items-center">
+            <h2>Seats</h2>
+            <button type="button" class="btn btn-primary" (click)="openSeatModal()" data-bs-toggle="modal" data-bs-target="#seatModal">
+              Create a Seat
+            </button>
+          </div>
           <ng-container *ngIf="(status$ | async) as status">
             <app-small-loader [loading]="status === 'loading'"></app-small-loader>
             <app-error [error]="status === 'error'" [text]="error$ | async"></app-error>
@@ -57,7 +59,7 @@
           <table class="table table-hover">
             <thead>
               <tr>
-                <th>Id</th>
+                <th>ID</th>
                 <th>Number</th>
                 <th>Location</th>
                 <th>Status</th>
@@ -73,7 +75,7 @@
                 <td class="d-flex justify-content-end gap-2">
                   <button class="btn btn-secondary" (click)="editSeat(seat)">Edit</button>
                   <button class="btn btn-danger" (click)="deleteSeat(seat)">Delete</button>
-                  <button class="btn btn-light">Reservations</button>
+                  <a class="btn btn-light" routerLink="{{'/seat/'+seat.id+'/bookings'}}">Bookings</a>
                 </td>
               </tr>
             </tbody>

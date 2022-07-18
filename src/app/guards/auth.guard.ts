@@ -22,7 +22,7 @@ export class AuthGuard implements CanActivate {
         let hasUser = user.accessToken !== null && user.status !== 'initial';
 
         if(!hasUser) {
-          this.router.navigateByUrl("/login");
+          this.router.navigate(["/login"]);
         }
 
         return true;

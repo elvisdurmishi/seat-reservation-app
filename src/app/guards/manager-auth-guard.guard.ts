@@ -8,7 +8,7 @@ import {getAuth} from "../ngrx/auth/auth.selectors";
 @Injectable({
   providedIn: 'root'
 })
-export class LoggedInGuard implements CanActivate {
+export class ManagerAuthGuardGuard implements CanActivate {
   constructor(
     private store: Store<AppState>,
     private router: Router,
@@ -21,7 +21,11 @@ export class LoggedInGuard implements CanActivate {
       map((user) => {
         let hasUser = user.user !== null && user.status !== 'initial';
 
-        if(hasUser) {
+        if(!hasUser) {
+          this.router.navigate(["/login"]);
+        }
+
+        if(user.user?.role !== 'manager') {
           this.router.navigate(["/"]);
         }
 

@@ -55,7 +55,26 @@
     {
       "id": 1,
       "userId": 1,
+      "userName": "Elvis",
       "seatId": 2,
+      "date": {
+        "from": {
+          "year": 2022,
+          "month": 7,
+          "day": 18
+        },
+        "to": {
+          "year": 2022,
+          "month": 7,
+          "day": 28
+        }
+      }
+    },
+    {
+      "id": 2,
+      "userId": 1,
+      "userName": "Elvis",
+      "seatId": 5,
       "date": {
         "from": {
           "year": 2022,

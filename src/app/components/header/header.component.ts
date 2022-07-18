@@ -24,8 +24,4 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit(): void {}
-
-  openSeatModal() {
-    this.store.dispatch(openSeatModal({payload: {seat: null}}))
-  }
 }
