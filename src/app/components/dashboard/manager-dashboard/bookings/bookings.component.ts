@@ -5,6 +5,7 @@ import {AppState} from "../../../../ngrx/app.state";
 import {getSeatBookingError, getSeatBookings, getSeatBookingStatus} from "../../../../ngrx/seats/seats.selectors";
 import {ActivatedRoute} from "@angular/router";
 import {loadSeatBookings} from "../../../../ngrx/seats/seats.actions";
+import {openBookingModal} from "../../../../ngrx/modals/modals.actions";
 
 @Component({
   selector: 'app-bookings',
@@ -28,7 +29,7 @@ export class BookingsComponent implements OnInit {
   }
 
   openBookingModal() {
-    console.log("open modal");
+    this.store.dispatch(openBookingModal({payload: {booking: null}}));
   }
 
   editBooking(booking: Booking) {

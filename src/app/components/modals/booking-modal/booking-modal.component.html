@@ -1,0 +1,45 @@
+<div class="modal-header">
+<!--  <h4 class="modal-title">{{booking ? 'Edit Booking' : 'Create Booking'}}</h4>-->
+  <h4 class="modal-title">Create Booking</h4>
+  <button type="button" class="btn btn-secondary close" aria-label="Close" (click)="closeModal()" >
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+<!--  <form class="form-group" [formGroup]="bookingForm">-->
+  <form class="form-group">
+    <div class="row gap-3">
+      <div class="col-sm-12 d-flex flex-column">
+        <label for="users-list" class="form-label">Users</label>
+        <input class="form-control" list="datalistOptions" id="users-list" placeholder="Search users...">
+        <datalist id="datalistOptions">
+          <option value="1">San Francisco</option>
+          <option value="2">New York</option>
+          <option value="3">
+          <option value="4">
+          <option value="5">
+        </datalist>
+      </div>
+      <div class="col-sm-12 d-flex flex-column">
+        <label>Location</label>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" id="main-location-seat" value="main" formControlName="location">
+          <label class="form-check-label" for="main-location-seat">
+            Main Floor
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" id="second-location-seat" value="second" formControlName="location">
+          <label class="form-check-label" for="second-location-seat">
+            Second Floor
+          </label>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-outline-dark" (click)="closeModal()">Close</button>
+<!--  <button type="button" class="btn btn-success" (click)="saveSeat()">Save</button>-->
+  <button type="button" class="btn btn-success">Save</button>
+</div>

@@ -7,3 +7,7 @@ export const getSeatModalData = createSelector(
   selectModals,
   (state: ModalsState) => state.seat
 );
+export const getBookingModalData = createSelector(
+  selectModals,
+  (state: ModalsState) => state.booking
+);

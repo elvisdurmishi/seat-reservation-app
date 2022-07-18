@@ -4,8 +4,9 @@ import {Store} from "@ngrx/store";
 import {AppState} from "../app.state";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {of, switchMap} from "rxjs";
-import {openSeatModal} from "./modals.actions";
+import {openBookingModal, openSeatModal} from "./modals.actions";
 import {SeatModalComponent} from "../../components/modals/seat-modal/seat-modal.component";
+import {BookingModalComponent} from "../../components/modals/booking-modal/booking-modal.component";
 
 @Injectable()
 export class ModalsEffects {
@@ -22,6 +23,17 @@ export class ModalsEffects {
       switchMap(({payload}) => {
         let modalRef = this.modalService.open(SeatModalComponent);
         modalRef.componentInstance.seat = payload.seat;
+        return of(modalRef);
+      })
+    ), {dispatch: false}
+  );
+
+  openBookingModal$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(openBookingModal),
+      switchMap(({payload}) => {
+        let modalRef = this.modalService.open(BookingModalComponent);
+        modalRef.componentInstance.booking = payload.booking;
         return of(modalRef);
       })
     ), {dispatch: false}
