@@ -20,6 +20,8 @@ import {
 } from "./seats.actions";
 import {getSeats} from "./seats.selectors";
 import {BookingService} from "../../services/booking/booking.service";
+import {getBookings} from "../bookings/bookings.selectors";
+import {DateRange} from "../../model/DateRange";
 
 @Injectable()
 export class SeatsEffects {
@@ -35,6 +37,18 @@ export class SeatsEffects {
       ofType(loadSeats),
       switchMap(() =>
         from(this.seatService.loadSeats()).pipe(
+          switchMap((seats) =>
+            from(this.store.select(getBookings)).pipe(
+              map((bookings) => {
+                let newSeatsList = seats ? [...seats] : [];
+                newSeatsList = newSeatsList.map((seat) =>
+                  bookings?.some((booking) => booking.seatId === seat.id && this.inReservedDateRange(booking.date))
+                    ? {...seat, status: 'busy'}
+                    : {...seat, status: 'free'})
+                return newSeatsList
+              }),
+            )
+          ),
           map((data) => {
             return loadSeatsSuccess({payload: {seats: data}})
           }),
@@ -91,6 +105,20 @@ export class SeatsEffects {
       ofType(loadFilteredSeats),
       switchMap(({payload}) =>
         from(this.seatService.loadFilteredSeats(payload.filters)).pipe(
+          switchMap((seats) =>
+            from(this.store.select(getBookings)).pipe(
+              map((bookings) => {
+                let newSeatsList = seats ? [...seats] : [];
+                newSeatsList = newSeatsList.map((seat) =>
+                  bookings?.some((booking) => booking.seatId === seat.id && this.inReservedDateRange(booking.date))
+                    ? {...seat, status: 'busy'}
+                    : {...seat, status: 'free'})
+                return payload.filters.status !== 'all'
+                  ? newSeatsList.filter((seat) => seat.status === payload.filters.status)
+                  : newSeatsList
+              }),
+            )
+          ),
           map((data) => {
             return loadFilteredSeatsSuccess({payload: {seats: data}})
           }),
@@ -113,4 +141,14 @@ export class SeatsEffects {
       )
     )
   )
+
+  inReservedDateRange(date: DateRange) {
+    let today = new Date();
+    const {from, to} = date;
+
+    let fromDate = new Date(from.year, from.month - 1, from.day);
+    let toDate   = new Date(to.year, to.month - 1, to.day);
+
+    return today > fromDate && today < toDate;
+  }
 }
