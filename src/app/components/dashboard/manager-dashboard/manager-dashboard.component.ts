@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Store} from "@ngrx/store";
 import {AppState} from "../../../ngrx/app.state";
-import {getFilteredSeats, getSeats} from "../../../ngrx/seats/seats.selectors";
+import {getFilteredSeats, getFilteredStatus, getSeats, getSeatsStatus} from "../../../ngrx/seats/seats.selectors";
 import {
   clearFilterResults,
   deleteSeat,
@@ -24,6 +24,11 @@ export class ManagerDashboardComponent implements OnInit, OnDestroy {
       iif(() => seats === null, this.store.select(getSeats), of(seats))
     )
   );
+  status$ = this.store.select(getFilteredStatus).pipe(
+    mergeMap((seats) =>
+      iif(() => seats === null, this.store.select(getSeatsStatus), of(seats))
+    )
+  );
   filtersForm: FormGroup;
   seatFilters$: any;
 
@@ -31,7 +36,6 @@ export class ManagerDashboardComponent implements OnInit, OnDestroy {
     private store: Store<AppState>,
     private formBuilder: FormBuilder,
     ) {
-    this.store.dispatch(loadSeats());
 
     this.filtersForm = this.formBuilder.group({
       location: ['all'],

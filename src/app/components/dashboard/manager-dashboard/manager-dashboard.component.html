@@ -50,6 +50,7 @@
       <div class="card-body">
         <div class="table-responsive">
           <h2>Seats</h2>
+          <app-small-loader [loading]="(status$ | async) === 'loading'"></app-small-loader>
           <table class="table table-hover">
             <thead>
               <tr>
