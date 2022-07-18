@@ -43,18 +43,34 @@ export class AuthEffects {
             this.cookieService.set("accessToken", data.accessToken);
             return loginSuccess({payload: {user: data.user, accessToken: data.accessToken}});
           }),
-          tap(() => {
-            this.dispatchAlternativeActions();
-            return this.router.navigateByUrl("/")
-          }),
           catchError((error) => {
-            this.cookieService.delete("accessToken");
             return of(loginFailure(error));
           })
         )
       )
     )
   );
+
+  loginSuccess$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(loginSuccess),
+      switchMap(() => {
+        console.log("logged success");
+        this.dispatchAlternativeActions();
+        return this.router.navigate(['/']);
+      })
+    ), { dispatch: false }
+  )
+
+  loginFailure$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(loginFailure),
+      switchMap(() => {
+        this.cookieService.delete("accessToken");
+        return this.router.navigate(['/login'])
+      })
+    ), { dispatch: false }
+  )
 
   register$ = createEffect(() =>
     this.actions$.pipe(
@@ -73,7 +89,7 @@ export class AuthEffects {
       ofType(logout),
       switchMap(() => {
         this.cookieService.delete("accessToken");
-        return this.router.navigateByUrl("/login")
+        return this.router.navigate(['/login'])
       })
     ),{ dispatch: false }
   )
@@ -87,11 +103,30 @@ export class AuthEffects {
             return loadUserSuccess({payload: {user: data}})
           }),
           catchError((error) => {
-            this.cookieService.delete("accessToken");
             return of(loadUserFailure(error));
           })
         )
       )
     )
   );
+
+  loadUserSuccess$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(loadUserSuccess),
+      switchMap(() => {
+        this.dispatchAlternativeActions();
+        return this.router.navigate(['/']);
+      })
+    ), { dispatch: false }
+  )
+
+  loadUserError$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(loadUserFailure),
+      switchMap(() => {
+        this.cookieService.delete("accessToken");
+        return this.router.navigate(["/login"]);
+      })
+    ), { dispatch: false }
+  )
 }

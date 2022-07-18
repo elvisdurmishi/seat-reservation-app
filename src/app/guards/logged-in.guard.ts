@@ -19,7 +19,7 @@ export class LoggedInGuard implements CanActivate {
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     return this.store.select(getAuth).pipe(
       map((user) => {
-        let hasUser = user.accessToken !== null && user.status !== 'initial';
+        let hasUser = user.user !== null && user.status !== 'initial';
 
         if(hasUser) {
           this.router.navigateByUrl("/");
