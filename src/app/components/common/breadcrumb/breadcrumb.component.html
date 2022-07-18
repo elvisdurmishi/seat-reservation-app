@@ -1,7 +1,7 @@
 <nav aria-label="breadcrumb">
   <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a href="/"><fa-icon [icon]="faHome"></fa-icon></a></li>
-    <li class="breadcrumb-item active"><a routerLink="/{{base}}">{{ base | titlecase}}</a></li>
+    <li class="breadcrumb-item"><a routerLink="/"><fa-icon [icon]="faHome"></fa-icon></a></li>
+    <li *ngIf="base" class="breadcrumb-item active"><a routerLink="/{{basePath}}">{{ base | titlecase}}</a></li>
     <li *ngIf="child" class="breadcrumb-item active" aria-current="page">{{child | titlecase}}</li>
   </ol>
 </nav>

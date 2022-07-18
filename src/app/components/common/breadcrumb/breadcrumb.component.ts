@@ -9,6 +9,7 @@ import { faHome } from '@fortawesome/free-solid-svg-icons';
 export class BreadcrumbComponent implements OnInit {
   faHome = faHome;
   @Input() base!: string;
+  @Input() basePath!: string;
   @Input() child!: string;
 
   constructor() { }

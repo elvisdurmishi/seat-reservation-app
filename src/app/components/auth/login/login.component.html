@@ -1,5 +1,5 @@
 <div class="container">
-  <app-breadcrumb [base]="'login'"></app-breadcrumb>
+  <app-breadcrumb base="login" basePath="login"></app-breadcrumb>
   <div class="row">
     <div class="col-lg-6 mx-auto">
       <ng-container *ngIf="loginStatus$ | async as status">

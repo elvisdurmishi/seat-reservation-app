@@ -1,3 +1,4 @@
+@import "colors";
 $min-height: 106px;
 
 .navbar {
@@ -19,6 +20,18 @@ $min-height: 106px;
     .nav-item {
       padding-top: 0.5rem;
       padding-bottom: 0.5rem;
+
+      &.active {
+        background-color: $background-color;
+      }
+    }
+
+    .nav-link {
+      border-bottom: 3px solid transparent;
+
+      &.active {
+        border-bottom: 3px solid $primary-color;
+      }
     }
   }
 }
