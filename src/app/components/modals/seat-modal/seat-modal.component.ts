@@ -21,7 +21,6 @@ export class SeatModalComponent implements OnInit {
     if(seat) {
       this.seatForm.get('number')?.setValue(seat.number);
       this.seatForm.get('location')?.setValue(seat.location);
-      this.seatForm.get('status')?.setValue(seat.status);
     }
   }
 
@@ -37,7 +36,6 @@ export class SeatModalComponent implements OnInit {
     this.seatForm = this.formBuilder.group({
       number: [1, {validators: [Validators.required, Validators.min(1), Validators.max(100)]}],
       location: ['main'],
-      status: ['free'],
     })
   }
 
@@ -61,10 +59,6 @@ export class SeatModalComponent implements OnInit {
 
   get location() {
     return this.seatForm.get('location');
-  }
-
-  get status() {
-    return this.seatForm.get('status');
   }
 
   hasErrors(){

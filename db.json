@@ -55,7 +55,7 @@
     {
       "id": 1,
       "userId": 1,
-      "seatId": 1,
+      "seatId": 2,
       "date": {
         "from": {
           "year": 2022,
