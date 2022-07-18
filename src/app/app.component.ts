@@ -3,6 +3,8 @@ import {Store} from "@ngrx/store";
 import {loadAccessTokenCookie, loadUser} from "./ngrx/auth/auth.actions";
 import {CookieService} from "ngx-cookie-service";
 import {parseJwt} from "./utility/utility.functions";
+import {loadSeats} from "./ngrx/seats/seats.actions";
+import {loadBookings} from "./ngrx/bookings/bookings.actions";
 
 @Component({
   selector: 'app-root',
@@ -22,5 +24,8 @@ export class AppComponent implements OnInit {
       let parsedToken = parseJwt(accessToken);
       this.store.dispatch(loadUser({payload: {userId: parsedToken.sub}}));
     }
+
+    this.store.dispatch(loadSeats());
+    this.store.dispatch(loadBookings());
   }
 }

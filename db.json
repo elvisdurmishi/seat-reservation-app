@@ -43,7 +43,31 @@
       "location": "main",
       "status": "free",
       "id": 4
+    },
+    {
+      "number": 4,
+      "location": "second",
+      "status": "free",
+      "id": 5
     }
   ],
-  "reservations": []
+  "bookings": [
+    {
+      "id": 1,
+      "userId": 1,
+      "seatId": 1,
+      "date": {
+        "from": {
+          "year": 2022,
+          "month": 7,
+          "day": 18
+        },
+        "to": {
+          "year": 2022,
+          "month": 7,
+          "day": 28
+        }
+      }
+    }
+  ]
 }

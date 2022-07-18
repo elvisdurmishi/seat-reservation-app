@@ -1,5 +1,8 @@
+import {DateRange} from "./DateRange";
+
 export interface Booking {
   id?: number,
-  seat: [row: string, number: string],
-  date: string
+  userId: number,
+  seatId: number,
+  date: DateRange,
 }
