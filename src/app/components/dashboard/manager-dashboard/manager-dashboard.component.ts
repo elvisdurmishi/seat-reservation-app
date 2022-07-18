@@ -1,7 +1,13 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Store} from "@ngrx/store";
 import {AppState} from "../../../ngrx/app.state";
-import {getFilteredSeats, getFilteredStatus, getSeats, getSeatsStatus} from "../../../ngrx/seats/seats.selectors";
+import {
+  getFilteredSeats,
+  getFilteredSeatsError,
+  getFilteredSeatsStatus,
+  getSeats, getSeatsError,
+  getSeatsStatus
+} from "../../../ngrx/seats/seats.selectors";
 import {
   clearFilterResults,
   deleteSeat,
@@ -24,9 +30,14 @@ export class ManagerDashboardComponent implements OnInit, OnDestroy {
       iif(() => seats === null, this.store.select(getSeats), of(seats))
     )
   );
-  status$ = this.store.select(getFilteredStatus).pipe(
-    mergeMap((seats) =>
-      iif(() => seats === null, this.store.select(getSeatsStatus), of(seats))
+  status$ = this.store.select(getFilteredSeatsStatus).pipe(
+    mergeMap((status) =>
+      iif(() => status === null, this.store.select(getSeatsStatus), of(status))
+    )
+  );
+  error$ = this.store.select(getFilteredSeatsError).pipe(
+    mergeMap((error) =>
+      iif(() => error === null, this.store.select(getSeatsError), of(error))
     )
   );
   filtersForm: FormGroup;

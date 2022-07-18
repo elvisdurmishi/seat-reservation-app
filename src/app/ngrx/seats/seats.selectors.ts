@@ -15,11 +15,15 @@ export const getSeatsStatus = createSelector(
   selectSeats,
   (state: SeatsState) => state.status
 );
-export const getFilteredStatus = createSelector(
+export const getFilteredSeatsStatus = createSelector(
   selectSeats,
   (state: SeatsState) => state.filtered_seats.status
 );
 export const getSeatsError = createSelector(
   selectSeats,
   (state: SeatsState) => state.error
+);
+export const getFilteredSeatsError = createSelector(
+  selectSeats,
+  (state: SeatsState) => state.filtered_seats.error
 );
