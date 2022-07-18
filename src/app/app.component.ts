@@ -23,9 +23,8 @@ export class AppComponent implements OnInit {
       this.store.dispatch(loadAccessTokenCookie({payload: {accessToken: accessToken}}))
       let parsedToken = parseJwt(accessToken);
       this.store.dispatch(loadUser({payload: {userId: parsedToken.sub}}));
+      this.store.dispatch(loadSeats());
+      this.store.dispatch(loadBookings());
     }
-
-    this.store.dispatch(loadSeats());
-    this.store.dispatch(loadBookings());
   }
 }

@@ -16,6 +16,8 @@ import {
 import {catchError, from, map, of, switchMap, tap} from "rxjs";
 import {CookieService} from "ngx-cookie-service";
 import {Router} from "@angular/router";
+import {loadSeats} from "../seats/seats.actions";
+import {loadBookings} from "../bookings/bookings.actions";
 
 @Injectable()
 export class AuthEffects {
@@ -27,6 +29,11 @@ export class AuthEffects {
     private router: Router
   ) { }
 
+  dispatchAlternativeActions() {
+    this.store.dispatch(loadSeats());
+    this.store.dispatch(loadBookings());
+  }
+
   login$ = createEffect(() =>
     this.actions$.pipe(
       ofType(login),
@@ -34,9 +41,12 @@ export class AuthEffects {
         from(this.authService.login(payload.email, payload.password)).pipe(
           map((data) => {
             this.cookieService.set("accessToken", data.accessToken);
-            return loginSuccess({payload: {user: data.user, accessToken: data.accessToken}})
+            return loginSuccess({payload: {user: data.user, accessToken: data.accessToken}});
           }),
-          tap(() => this.router.navigateByUrl("/")),
+          tap(() => {
+            this.dispatchAlternativeActions();
+            return this.router.navigateByUrl("/")
+          }),
           catchError((error) => {
             this.cookieService.delete("accessToken");
             return of(loginFailure(error));
