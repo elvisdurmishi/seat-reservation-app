@@ -52,36 +52,7 @@
             Create a Seat
           </button>
         </div>
-        <div class="table-responsive">
-          <ng-container *ngIf="(status$ | async) as status">
-            <app-small-loader [loading]="status === 'loading'"></app-small-loader>
-            <app-error [error]="status === 'error'" [text]="error$ | async"></app-error>
-          </ng-container>
-          <table class="table table-hover">
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Number</th>
-                <th>Location</th>
-                <th>Status</th>
-                <th class="text-end">Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let seat of seats$ | async">
-                <td valign="center">{{seat.id}}</td>
-                <td>{{seat.number}}</td>
-                <td>{{seat.location | titlecase}} Floor</td>
-                <td class="cell" [ngClass]="'cell-' + (seat.status == 'free' ? 'success' : 'danger')">{{seat.status}}</td>
-                <td class="d-flex justify-content-end gap-2">
-                  <button class="btn btn-secondary" (click)="editSeat(seat)">Edit</button>
-                  <button class="btn btn-danger" (click)="deleteSeat(seat)">Delete</button>
-                  <a class="btn btn-light" routerLink="{{'/seat/'+seat.id+'/bookings'}}">Bookings</a>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+        <app-seats-table [status$]="status$" [error$]="error$" [seats$]="seats$" (onSeatEdit)="editSeat($event)" (onSeatDelete)="deleteSeat($event)"></app-seats-table>
       </div>
     </div>
   </div>

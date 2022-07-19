@@ -16,7 +16,6 @@ import {
   loadSeatsSuccess,
   saveSeat,
   saveSeatFailure,
-  saveSeatSuccess
 } from "./seats.actions";
 import {getSeats} from "./seats.selectors";
 import {BookingService} from "../../services/booking/booking.service";
@@ -61,19 +60,9 @@ export class SeatsEffects {
   saveSeat$ = createEffect(() =>
     this.actions$.pipe(
       ofType(saveSeat),
-      withLatestFrom(this.store.select(getSeats)),
-      switchMap(([{payload}, seats]) =>
+      switchMap(({payload}) =>
         from(this.seatService.saveSeat(payload.seat).pipe(
-          map((data) => {
-            let changedList = seats ? seats : [];
-            if(!payload.seat.id) {
-              changedList = [...changedList, data];
-            } else {
-              changedList = seats ? seats?.map(s => s.id === data.id ? data : s) : [];
-            }
-
-            return saveSeatSuccess({payload: {seats: changedList}});
-          }),
+          map(() => loadSeats()),
           catchError((error) => {
             return of(saveSeatFailure(error));
           })

@@ -7,8 +7,8 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ng-container *ngIf="user$ | async as user">
         <ul class="navbar-nav d-none d-lg-flex">
-          <li class="nav-link" [ngClass]="pathname === '/' ? 'active' : ''">
-            <a routerLink="">{{user.role === 'manager' ? 'Seats' : 'Home'}}</a>
+          <li class="nav-link" [ngClass]="pathname === '/seat' ? 'active' : ''" *ngIf="user.role === 'manager'">
+            <a routerLink="/seat">Seats</a>
           </li>
         </ul>
       </ng-container>
@@ -21,7 +21,9 @@
           <button class="btn" (click)="logout()"><fa-icon [icon]="faArrowRightFromBracket"></fa-icon></button>
         </div>
         <ul class="navbar-nav justify-content-center d-lg-none flex-column text-center ">
-          <li class="nav-item" [ngClass]="pathname === '/' ? 'active' : ''">{{user.role === 'manager' ? 'Seats' : 'Home'}}</li>
+          <li class="nav-item" [ngClass]="pathname === '/seat' ? 'active' : ''" *ngIf="user.role === 'manager'">
+            <a routerLink="/seat">Seats</a>
+          </li>
           <li class="nav-item">My Profile</li>
           <li class="nav-item" (click)="logout()">Logout</li>
         </ul>

@@ -21,13 +21,16 @@ import {ReactiveFormsModule} from "@angular/forms";
 import {CookieService} from "ngx-cookie-service";
 import {SmallLoaderComponent} from "./components/common/small-loader/small-loader.component";
 import { DashboardComponent } from './components/dashboard/dashboard/dashboard.component';
-import { ManagerDashboardComponent } from './components/dashboard/manager-dashboard/manager-dashboard.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {DatepickerComponent} from "./components/common/datepicker/datepicker.component";
 import { SeatModalComponent } from './components/modals/seat-modal/seat-modal.component';
 import { ErrorComponent } from './components/common/error/error.component';
 import {BookingsComponent} from "./components/dashboard/manager-dashboard/bookings/bookings.component";
 import { BookingModalComponent } from './components/modals/booking-modal/booking-modal.component';
+import { SeatsTableComponent } from './components/seats/seats-table/seats-table.component';
+import { SeatsTableListComponent } from './components/seats/seats-table-list/seats-table-list.component';
+import { SeatsTableElementComponent } from './components/seats/seats-table-element/seats-table-element.component';
+import { SeatComponent } from './pages/seat/seat.component';
 
 @NgModule({
   declarations: [
@@ -38,12 +41,15 @@ import { BookingModalComponent } from './components/modals/booking-modal/booking
     RegisterComponent,
     SmallLoaderComponent,
     DashboardComponent,
-    ManagerDashboardComponent,
     DatepickerComponent,
     SeatModalComponent,
     ErrorComponent,
     BookingsComponent,
     BookingModalComponent,
+    SeatsTableComponent,
+    SeatsTableListComponent,
+    SeatsTableElementComponent,
+    SeatComponent,
   ],
   imports: [
     BrowserModule,

@@ -29,7 +29,8 @@
     {
       "number": 2,
       "location": "second",
-      "id": 2
+      "id": 2,
+      "status": "busy"
     },
     {
       "number": 3,
@@ -40,6 +41,11 @@
       "number": 1,
       "location": "main",
       "id": 4
+    },
+    {
+      "number": 3,
+      "location": "second",
+      "id": 5
     }
   ],
   "bookings": [
