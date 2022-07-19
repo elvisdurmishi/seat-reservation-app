@@ -34,7 +34,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let booking of bookings">
+            <tr *ngFor="let booking of bookings$ | async">
               <td>{{booking.id}}</td>
               <td>{{booking.userId}}</td>
               <td>{{booking.userName}}</td>

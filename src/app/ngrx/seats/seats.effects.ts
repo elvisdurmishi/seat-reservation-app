@@ -10,7 +10,7 @@ import {
   deleteSeatSuccess,
   loadFilteredSeats,
   loadFilteredSeatsFailure,
-  loadFilteredSeatsSuccess, loadSeatBookings, loadSeatBookingsFailure, loadSeatBookingsSuccess,
+  loadFilteredSeatsSuccess,
   loadSeats,
   loadSeatsFailure,
   loadSeatsSuccess,
@@ -123,20 +123,6 @@ export class SeatsEffects {
             return loadFilteredSeatsSuccess({payload: {seats: data}})
           }),
           catchError(() => of(loadFilteredSeatsFailure()))
-        )
-      )
-    )
-  )
-
-  seatBookings$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(loadSeatBookings),
-      switchMap(({payload}) =>
-        from(this.bookingService.loadSeatBookings(payload.seatId)).pipe(
-          map((data) => {
-            return loadSeatBookingsSuccess({payload: {bookings: data}})
-          }),
-          catchError((error) => of(loadSeatBookingsFailure(error)))
         )
       )
     )

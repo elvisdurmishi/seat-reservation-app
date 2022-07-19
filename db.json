@@ -63,8 +63,8 @@
     },
     {
       "seatId": 2,
-      "userId": "1",
-      "userName": "Elvis",
+      "userId": "2",
+      "userName": "Manager",
       "date": {
         "from": {
           "year": 2022,

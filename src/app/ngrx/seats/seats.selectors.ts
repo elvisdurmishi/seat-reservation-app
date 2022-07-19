@@ -27,17 +27,3 @@ export const getFilteredSeatsError = createSelector(
   selectSeats,
   (state: SeatsState) => state.filtered_seats.error
 );
-export const getSeatBookings = createSelector(
-  selectSeats,
-  (state: SeatsState) => state.selected_seat.bookings
-)
-
-export const getSeatBookingStatus = createSelector(
-  selectSeats,
-  (state: SeatsState) => state.selected_seat.status
-)
-
-export const getSeatBookingError = createSelector(
-  selectSeats,
-  (state: SeatsState) => state.selected_seat.error
-)

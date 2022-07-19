@@ -16,9 +16,8 @@ import {
 import {Seat} from "../../../model/Seat";
 import {openSeatModal} from "../../../ngrx/modals/modals.actions";
 import {FormBuilder, FormGroup} from "@angular/forms";
-import {catchError, concat, from, iif, map, mergeMap, of, switchMap, tap} from "rxjs";
-import {getBookings} from "../../../ngrx/bookings/bookings.selectors";
-import {DateRange} from "../../../model/DateRange";
+import {iif, map, mergeMap, of} from "rxjs";
+import {loadBookings} from "../../../ngrx/bookings/bookings.actions";
 
 @Component({
   selector: 'app-manager-dashboard',
@@ -53,6 +52,8 @@ export class ManagerDashboardComponent implements OnInit, OnDestroy {
       location: ['all'],
       status: ['all'],
     })
+
+    this.store.dispatch(loadBookings());
 
     this.seatFilters$ = this.filtersForm.valueChanges.pipe(
       map((filters) => {

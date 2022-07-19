@@ -9,10 +9,10 @@ import {
   bookSeatSuccess, deleteBooking, deleteBookingFailure, deleteBookingSuccess,
   loadBookings,
   loadBookingsFailure,
-  loadBookingsSuccess
+  loadBookingsSuccess, loadSeatBookings, loadSeatBookingsFailure, loadSeatBookingsSuccess
 } from "./bookings.actions";
 import {BookingService} from "../../services/booking/booking.service";
-import {getBookings} from "./bookings.selectors";
+import {getBookings, getSeatBookings} from "./bookings.selectors";
 
 @Injectable()
 export class BookingsEffects {
@@ -40,7 +40,7 @@ export class BookingsEffects {
   bookSeat$ = createEffect(() =>
     this.actions$.pipe(
       ofType(bookSeat),
-      withLatestFrom(this.store.select(getBookings)),
+      withLatestFrom(this.store.select(getSeatBookings)),
       switchMap(([{payload}, bookings]) =>
         from(this.bookingService.bookSeat(payload.booking).pipe(
           map((data) => {
@@ -57,6 +57,20 @@ export class BookingsEffects {
             return of(bookSeatFailure(error));
           })
         ))
+      )
+    )
+  )
+
+  seatBookings$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(loadSeatBookings),
+      switchMap(({payload}) =>
+        from(this.bookingService.loadSeatBookings(payload.seatId)).pipe(
+          map((data) => {
+            return loadSeatBookingsSuccess({payload: {bookings: data}})
+          }),
+          catchError((error) => of(loadSeatBookingsFailure(error)))
+        )
       )
     )
   )

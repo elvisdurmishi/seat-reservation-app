@@ -6,10 +6,10 @@ import {Store} from "@ngrx/store";
 import {AppState} from "../../../ngrx/app.state";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {bookSeat} from "../../../ngrx/bookings/bookings.actions";
-import {getBookings} from "../../../ngrx/bookings/bookings.selectors";
 import {map, withLatestFrom} from "rxjs";
 import {DateRange} from "../../../model/DateRange";
 import {getUser} from "../../../ngrx/auth/auth.selectors";
+import {getSeatBookings} from "../../../ngrx/bookings/bookings.selectors";
 
 @Component({
   selector: 'app-booking-modal',
@@ -49,10 +49,10 @@ export class BookingModalComponent implements OnInit, OnDestroy {
     const {seatId, booking, userId, userName, date} = this;
     this.formSeatId?.setValue(Number(seatId));
 
-    this.bookings$ = this.store.select(getBookings).pipe(
+    this.bookings$ = this.store.select(getSeatBookings).pipe(
       withLatestFrom(this.user$),
       map(([bookings, user]) => {
-        bookings?.forEach((booking) => booking.seatId == this.seatId && (booking.userId != user?.id)
+        bookings?.forEach((booking) => (booking.userId != user?.id)
           ? this.disabledDates = [...this.disabledDates, booking.date]
           : this.disabledDates = [...this.disabledDates])
         return this.disabledDates;
