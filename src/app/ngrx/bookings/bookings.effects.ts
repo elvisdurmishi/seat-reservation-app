@@ -6,10 +6,18 @@ import {catchError, from, map, of, switchMap, withLatestFrom} from "rxjs";
 import {
   bookSeat,
   bookSeatFailure,
-  bookSeatSuccess, deleteBooking, deleteBookingFailure, deleteBookingSuccess,
+  bookSeatSuccess,
+  deleteBooking,
+  deleteBookingFailure,
+  deleteBookingSuccess,
   loadBookings,
   loadBookingsFailure,
-  loadBookingsSuccess, loadSeatBookings, loadSeatBookingsFailure, loadSeatBookingsSuccess
+  loadBookingsSuccess,
+  loadFilteredBookings, loadFilteredBookingsFailure,
+  loadFilteredBookingsSuccess,
+  loadSeatBookings,
+  loadSeatBookingsFailure,
+  loadSeatBookingsSuccess
 } from "./bookings.actions";
 import {BookingService} from "../../services/booking/booking.service";
 import {getBookings, getSeatBookings} from "./bookings.selectors";
@@ -92,4 +100,18 @@ export class BookingsEffects {
       )
     )
   )
+
+  filterBookings$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(loadFilteredBookings),
+      switchMap(({payload}) =>
+        from(this.bookingService.loadFilteredBookings(payload.seatId, payload.filters)).pipe(
+          map((data) => {
+            return loadFilteredBookingsSuccess({payload: {bookings: data}})
+          }),
+          catchError(() => of(loadFilteredBookingsFailure()))
+        )
+      )
+    )
+  );
 }

@@ -12,6 +12,11 @@ export const getSeatBookings = createSelector(
   (state: BookingsState) => state.selected_seat.bookings
 )
 
+export const getFilteredBookings = createSelector(
+  selectBookings,
+  (state: BookingsState) => state.filtered_bookings.bookings
+)
+
 export const getSeatBookingStatus = createSelector(
   selectBookings,
   (state: BookingsState) => state.selected_seat.status
