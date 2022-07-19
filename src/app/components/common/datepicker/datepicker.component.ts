@@ -15,6 +15,7 @@ export class DatepickerComponent implements OnInit {
   @Output() onDateSelection = new EventEmitter();
   hoveredDate: NgbDate | null = null;
   faCalendar = faCalendar;
+  minDate: NgbDate = this.calendar.getToday();
   maxDate: NgbDate = this.calendar.getNext(this.calendar.getToday(), 'd', 60);
 
   constructor(private calendar: NgbCalendar, public formatter: NgbDateParserFormatter) { }

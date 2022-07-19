@@ -20,8 +20,8 @@ export class BookingModalComponent implements OnInit, OnDestroy {
   @Input() booking!: Booking | null;
   @Input() seatId!: number | null;
   users$ = this.store.select(getUsers);
-  fromDate: NgbDate | null;
-  toDate: NgbDate | null;
+  fromDate: NgbDate | null = null;
+  toDate: NgbDate | null = null;
   bookingForm: FormGroup;
   disabledDates: DateRange[] = [];
   user$ = this.store.select(getUser);
@@ -33,8 +33,6 @@ export class BookingModalComponent implements OnInit, OnDestroy {
     private calendar: NgbCalendar,
     private formBuilder: FormBuilder,
   ) {
-    this.fromDate = calendar.getToday();
-    this.toDate = calendar.getNext(calendar.getToday(), 'd', 1);
 
     this.bookingForm = this.formBuilder.group({
       seatId: [''],
@@ -138,7 +136,7 @@ export class BookingModalComponent implements OnInit, OnDestroy {
       let toDate   = new Date(to.year, to.month - 1, to.day);
 
       let invalidRange = currentFrom <= fromDate && currentTo >= toDate;
-      this.date?.setErrors({invalidRange: invalidRange})
+      this.date?.setErrors(invalidRange ? {invalidRange: invalidRange} : null)
       return invalidRange;
     })
   }
