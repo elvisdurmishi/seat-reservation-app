@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Booking} from "../../../../model/Booking";
 import {Store} from "@ngrx/store";
 import {AppState} from "../../../../ngrx/app.state";
@@ -7,14 +7,16 @@ import {ActivatedRoute} from "@angular/router";
 import {loadSeatBookings} from "../../../../ngrx/seats/seats.actions";
 import {openBookingModal} from "../../../../ngrx/modals/modals.actions";
 import {deleteBooking} from "../../../../ngrx/bookings/bookings.actions";
+import {getBookings} from "../../../../ngrx/bookings/bookings.selectors";
 
 @Component({
   selector: 'app-bookings',
   templateUrl: './bookings.component.html',
   styleUrls: ['./bookings.component.scss']
 })
-export class BookingsComponent implements OnInit {
-  bookings$ = this.store.select(getSeatBookings);
+export class BookingsComponent implements OnInit, OnDestroy {
+  bookings: Booking[] = [];
+  bookings$: any;
   status$ = this.store.select(getSeatBookingStatus);
   error$ = this.store.select(getSeatBookingError);
   seatId: number;
@@ -25,9 +27,14 @@ export class BookingsComponent implements OnInit {
     ) {
     this.seatId = route.snapshot.params['id'];
     this.store.dispatch(loadSeatBookings({payload: {seatId: this.seatId}}));
+    this.bookings$ = this.store.select(getBookings).subscribe((value: any) => this.bookings = value);
   }
 
   ngOnInit(): void {
+  }
+
+  ngOnDestroy(): void {
+    this.bookings$.unsubscribe;
   }
 
   openBookingModal() {

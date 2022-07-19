@@ -40,32 +40,9 @@
       "number": 1,
       "location": "main",
       "id": 4
-    },
-    {
-      "number": 4,
-      "location": "second",
-      "id": 5
     }
   ],
   "bookings": [
-    {
-      "id": 2,
-      "userId": 1,
-      "userName": "Elvis",
-      "seatId": 5,
-      "date": {
-        "from": {
-          "year": 2022,
-          "month": 7,
-          "day": 18
-        },
-        "to": {
-          "year": 2022,
-          "month": 7,
-          "day": 28
-        }
-      }
-    },
     {
       "seatId": 2,
       "userId": "1",
@@ -86,8 +63,8 @@
     },
     {
       "seatId": 2,
-      "userId": "2",
-      "userName": "Manager",
+      "userId": "1",
+      "userName": "Elvis",
       "date": {
         "from": {
           "year": 2022,
@@ -101,24 +78,6 @@
         }
       },
       "id": 6
-    },
-    {
-      "seatId": 2,
-      "userId": "1",
-      "userName": "Elvis",
-      "date": {
-        "from": {
-          "year": 2022,
-          "month": 8,
-          "day": 1
-        },
-        "to": {
-          "year": 2022,
-          "month": 8,
-          "day": 4
-        }
-      },
-      "id": 7
     }
   ]
 }
