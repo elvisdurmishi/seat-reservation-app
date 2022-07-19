@@ -1,0 +1,19 @@
+<div class="table-responsive">
+  <ng-container *ngIf="(status$ | async) as status">
+    <app-small-loader [loading]="status === 'loading'"></app-small-loader>
+    <app-error [error]="status === 'error'" [text]="error$ | async"></app-error>
+  </ng-container>
+  <table class="table table-hover">
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>{{seatId ? 'User ID' : 'Seat ID'}}</th>
+      <th>User Name</th>
+      <th>From</th>
+      <th>To</th>
+      <th class="text-end">Actions</th>
+    </tr>
+    </thead>
+    <tbody app-bookings-list [seatId]="seatId" [bookings]="bookings" (onEdit)="editBooking($event)" (onDelete)="deleteBooking($event)"></tbody>
+  </table>
+</div>

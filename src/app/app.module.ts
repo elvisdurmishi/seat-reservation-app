@@ -25,12 +25,16 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {DatepickerComponent} from "./components/common/datepicker/datepicker.component";
 import { SeatModalComponent } from './components/modals/seat-modal/seat-modal.component';
 import { ErrorComponent } from './components/common/error/error.component';
-import {BookingsComponent} from "./components/dashboard/manager-dashboard/bookings/bookings.component";
 import { BookingModalComponent } from './components/modals/booking-modal/booking-modal.component';
 import { SeatsTableComponent } from './components/seats/seats-table/seats-table.component';
 import { SeatsTableListComponent } from './components/seats/seats-table-list/seats-table-list.component';
 import { SeatsTableElementComponent } from './components/seats/seats-table-element/seats-table-element.component';
 import { SeatComponent } from './pages/seat/seat.component';
+import { BookingsTableComponent } from './components/bookings/bookings-table/bookings-table.component';
+import { BookingsListComponent } from './components/bookings/bookings-list/bookings-list.component';
+import { BookingsElementComponent } from './components/bookings/bookings-element/bookings-element.component';
+import {BookingsComponent} from "./components/bookings/bookings/bookings.component";
+import { BookingsPageComponent } from './pages/bookings-page/bookings-page.component';
 
 @NgModule({
   declarations: [
@@ -44,12 +48,17 @@ import { SeatComponent } from './pages/seat/seat.component';
     DatepickerComponent,
     SeatModalComponent,
     ErrorComponent,
-    BookingsComponent,
     BookingModalComponent,
     SeatsTableComponent,
     SeatsTableListComponent,
     SeatsTableElementComponent,
     SeatComponent,
+    BookingsTableComponent,
+    BookingsListComponent,
+    BookingsElementComponent,
+    BookingsComponent,
+    BookingsPageComponent,
+    BookingsComponent,
   ],
   imports: [
     BrowserModule,

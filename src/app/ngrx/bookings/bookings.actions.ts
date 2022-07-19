@@ -82,3 +82,17 @@ export const loadFilteredBookingsFailure = createAction(
 export const clearFilterBookingsResults = createAction(
   "[Manager Dashboard] Clear Filter Bookings Results",
 )
+
+export const loadMySeatBookings = createAction(
+  "[User Bookings] Load My Seat Bookings"
+)
+
+export const loadMySeatBookingsSuccess = createAction(
+  "[User Bookings] Load My Seat Bookings",
+  props<{payload: { bookings: Booking[] }}>()
+)
+
+export const loadMySeatBookingsFailure = createAction(
+  "[User Bookings] Load My Seat Bookings",
+  props<{ error: string }>()
+)

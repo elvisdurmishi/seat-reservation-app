@@ -1,0 +1,5 @@
+<tr app-bookings-element *ngFor="let booking of bookings"
+    [seatId]="seatId"
+    [booking]="booking"
+    (onEdit)="onBookingEdit($event)"
+    (onDelete)="onBookingDelete($event)"></tr>

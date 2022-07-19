@@ -1,0 +1,27 @@
+<div class="row">
+  <app-breadcrumb base="Seats" basePath="/seat" child="Bookings"></app-breadcrumb>
+  <div class="col-lg-3">
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <h2>Filters</h2>
+        <div class="row align-items-center">
+          <app-datepicker [fromDate]="fromDate" [toDate]="toDate" (onDateSelection)="onDateSelection($event)"></app-datepicker>
+          <div class="flex-center" *ngIf="fromDate">
+            <button class="btn btn-outline-primary" (click)="clearFilters()">Clear Filters</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-9">
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <div class="d-flex justify-content-between align-items-center">
+          <h2>Bookings</h2>
+          <button *ngIf="seatId" type="button" class="btn btn-primary" (click)="openBookingModal()">Create a Booking</button>
+        </div>
+        <app-bookings-table [seatId]="seatId" [bookings]="bookings$ | async" [status$]="status$" [error$]="error$"></app-bookings-table>
+      </div>
+    </div>
+  </div>
+</div>

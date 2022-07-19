@@ -1,24 +1,22 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {Booking} from "../../../../model/Booking";
-import {Store} from "@ngrx/store";
-import {AppState} from "../../../../ngrx/app.state";
-import {ActivatedRoute} from "@angular/router";
-import {openBookingModal} from "../../../../ngrx/modals/modals.actions";
-import {
-  clearBookingsList, clearFilterBookingsResults,
-  deleteBooking,
-  loadFilteredBookings,
-  loadSeatBookings
-} from "../../../../ngrx/bookings/bookings.actions";
 import {
   getFilteredBookings,
   getSeatBookingError,
   getSeatBookings,
   getSeatBookingStatus
-} from "../../../../ngrx/bookings/bookings.selectors";
+} from "../../../ngrx/bookings/bookings.selectors";
 import {iif, mergeMap, of} from "rxjs";
-import {DateRange} from "../../../../model/DateRange";
-import {NgbDate} from "@ng-bootstrap/ng-bootstrap";
+import {Store} from "@ngrx/store";
+import {AppState} from "../../../ngrx/app.state";
+import {ActivatedRoute} from "@angular/router";
+import {
+  clearBookingsList,
+  clearFilterBookingsResults,
+  loadFilteredBookings, loadMySeatBookings,
+  loadSeatBookings
+} from "../../../ngrx/bookings/bookings.actions";
+import {DateRange} from "../../../model/DateRange";
+import {openBookingModal} from "../../../ngrx/modals/modals.actions";
 
 @Component({
   selector: 'app-bookings',
@@ -40,9 +38,13 @@ export class BookingsComponent implements OnInit, OnDestroy {
   constructor(
     private store: Store<AppState>,
     private route: ActivatedRoute
-    ) {
-    this.seatId = route.snapshot.params['id'];
-    this.store.dispatch(loadSeatBookings({payload: {seatId: this.seatId}}));
+  ) {
+    this.seatId = route.snapshot?.params['id'];
+    if(this.seatId) {
+      this.store.dispatch(loadSeatBookings({payload: {seatId: this.seatId}}));
+    } else {
+      this.store.dispatch(loadMySeatBookings());
+    }
   }
 
   ngOnInit(): void {
@@ -53,19 +55,11 @@ export class BookingsComponent implements OnInit, OnDestroy {
   }
 
   openBookingModal() {
+    if(!this.seatId) {
+      return;
+    }
+
     this.store.dispatch(openBookingModal({payload: {booking: null, seatId: this.seatId}}));
-  }
-
-  editBooking(booking: Booking) {
-    this.store.dispatch(openBookingModal({payload: {booking: booking, seatId: this.seatId}}))
-  }
-
-  deleteBooking(booking: Booking) {
-    this.store.dispatch(deleteBooking({payload: {bookingId: booking.id}}))
-  }
-
-  parseDate(date: any) {
-    return date.day + '-' + date.month + '-' + date.year;
   }
 
   onDateSelection(dateRange: DateRange) {
