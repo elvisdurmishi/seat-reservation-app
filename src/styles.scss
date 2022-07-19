@@ -111,9 +111,10 @@ table {
 }
 
 .ngb-dp-day.disabled {
-  background-color: $disabled-color;
+  background-color: $faded-blue;
+  cursor: not-allowed !important;
   &:hover {
-    cursor: not-allowed;
+    cursor: not-allowed !important;
   }
 }
 
