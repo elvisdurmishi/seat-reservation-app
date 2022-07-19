@@ -18,6 +18,10 @@ export class BookingService {
     return this.http.getRequest(`/bookings?seatId=${seatId}`, '/640')
   }
 
+  loadMySeatBookings(userId: number | undefined) {
+    return this.http.getRequest(`/bookings?userId=${userId}`, '/640')
+  }
+
   bookSeat(booking: Booking) {
     if(booking.id) {
       return this.http.putRequest(`/bookings/${booking.id}`, booking);
@@ -31,11 +35,15 @@ export class BookingService {
   }
 
   loadFilteredBookings(seatId: number, date: DateRange) {
-    return this.http.getRequest(`/bookings` + this.buildQueryString(seatId, date))
+    return this.http.getRequest(`/bookings` + BookingService.buildQueryString(seatId, date, 'seat'))
   }
 
-  private buildQueryString(seatId: number, date: DateRange) {
-    let query = `?seatId=${seatId}`;
+  loadMyFilteredBookings(userId: number | undefined, date: DateRange) {
+    return this.http.getRequest(`/bookings` + BookingService.buildQueryString(userId, date, 'user'))
+  }
+
+  private static buildQueryString(id: number | undefined, date: DateRange, type: string) {
+    let query = `?${type}Id=${id}`;
     query = query + `&date.from.year_gte=${date.from.year}&date.from.month_gte=${date.from.month}&date.from.day_gte=${date.from.day}`;
 
     if(date.to) {

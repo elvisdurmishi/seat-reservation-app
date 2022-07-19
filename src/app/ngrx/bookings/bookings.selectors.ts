@@ -12,9 +12,29 @@ export const getSeatBookings = createSelector(
   (state: BookingsState) => state.selected_seat.bookings
 )
 
+export const getMySeatBookings = createSelector(
+  selectBookings,
+  (state: BookingsState) => state.my_bookings.bookings
+)
+
+export const getMySeatBookingStatus = createSelector(
+  selectBookings,
+  (state: BookingsState) => state.my_bookings.status
+)
+
+export const getMySeatBookingError = createSelector(
+  selectBookings,
+  (state: BookingsState) => state.my_bookings.error
+)
+
 export const getFilteredBookings = createSelector(
   selectBookings,
   (state: BookingsState) => state.filtered_bookings.bookings
+)
+
+export const getMyFilteredBookings = createSelector(
+  selectBookings,
+  (state: BookingsState) => state.my_filtered_bookings.bookings
 )
 
 export const getSeatBookingStatus = createSelector(

@@ -15,6 +15,7 @@ export class BookingsTableComponent implements OnInit {
   @Input() status$: any;
   @Input() error$: any;
   @Input() seatId?: number;
+  @Input() inProfile?: boolean;
 
   constructor(private store: Store<AppState>) { }
 
@@ -22,6 +23,9 @@ export class BookingsTableComponent implements OnInit {
   }
 
   editBooking(booking: Booking) {
+    if(this.inProfile) {
+      return;
+    }
     this.store.dispatch(openBookingModal({payload: {booking: booking, seatId: booking.seatId}}))
   }
 

@@ -8,7 +8,7 @@ import {Booking} from "../../../model/Booking";
 })
 export class BookingsElementComponent implements OnInit {
   @Input() booking!: Booking;
-  @Input() seatId?: number;
+  @Input() inProfile?: boolean;
   @Output() onEdit = new EventEmitter();
   @Output() onDelete = new EventEmitter();
 
@@ -22,10 +22,23 @@ export class BookingsElementComponent implements OnInit {
   }
 
   deleteBooking(booking: Booking) {
+    if(!this.canDelete(booking)) {
+      return;
+    }
+
     this.onDelete.emit(booking);
   }
 
   parseDate(date: any) {
     return date.day + '-' + date.month + '-' + date.year;
+  }
+
+  canDelete(booking: Booking) {
+    let today = new Date();
+    const {to} = booking.date;
+
+    let toDate   = new Date(to.year, to.month - 1, to.day);
+
+    return today < toDate;
   }
 }

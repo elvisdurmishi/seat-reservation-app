@@ -8,7 +8,7 @@ import {Booking} from "../../../model/Booking";
 })
 export class BookingsListComponent implements OnInit {
   @Input() bookings!: Booking[] | null;
-  @Input() seatId?: number;
+  @Input() inProfile?: boolean;
   @Output() onEdit = new EventEmitter();
   @Output() onDelete = new EventEmitter();
 

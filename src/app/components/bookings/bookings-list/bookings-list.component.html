@@ -1,5 +1,5 @@
 <tr app-bookings-element *ngFor="let booking of bookings"
-    [seatId]="seatId"
+    [inProfile]="inProfile"
     [booking]="booking"
     (onEdit)="onBookingEdit($event)"
     (onDelete)="onBookingDelete($event)"></tr>

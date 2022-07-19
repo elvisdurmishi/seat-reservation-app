@@ -7,13 +7,13 @@
     <thead>
     <tr>
       <th>ID</th>
-      <th>{{seatId ? 'User ID' : 'Seat ID'}}</th>
+      <th>{{inProfile ? 'Seat ID' : 'User ID'}}</th>
       <th>User Name</th>
       <th>From</th>
       <th>To</th>
       <th class="text-end">Actions</th>
     </tr>
     </thead>
-    <tbody app-bookings-list [seatId]="seatId" [bookings]="bookings" (onEdit)="editBooking($event)" (onDelete)="deleteBooking($event)"></tbody>
+    <tbody app-bookings-list [inProfile]="inProfile" [bookings]="bookings" (onEdit)="editBooking($event)" (onDelete)="deleteBooking($event)"></tbody>
   </table>
 </div>

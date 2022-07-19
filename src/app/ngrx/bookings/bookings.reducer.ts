@@ -2,13 +2,19 @@ import {createReducer, on} from "@ngrx/store";
 import {Booking} from "../../model/Booking";
 import {
   bookSeatSuccess,
-  clearBookingsList, clearFilterBookingsResults,
+  clearBookingsList,
+  clearFilterBookingsResults, clearMyFilteredBookingsResults,
   deleteBookingSuccess,
   loadBookings,
   loadBookingsFailure,
   loadBookingsSuccess,
-  loadFilteredBookings, loadFilteredBookingsFailure,
+  loadFilteredBookings,
+  loadFilteredBookingsFailure,
   loadFilteredBookingsSuccess,
+  loadMyFilteredBookings, loadMyFilteredBookingsFailure, loadMyFilteredBookingsSuccess,
+  loadMySeatBookings,
+  loadMySeatBookingsFailure,
+  loadMySeatBookingsSuccess,
   loadSeatBookings,
   loadSeatBookingsFailure,
   loadSeatBookingsSuccess
@@ -28,6 +34,16 @@ export interface BookingsState {
     bookings: Booking[] | null,
     error: string | null,
     status: 'initial' | 'loading' | 'error' | 'success',
+  },
+  my_bookings: {
+    bookings: Booking[] | null,
+    error: string | null,
+    status: 'initial' | 'loading' | 'error' | 'success',
+  },
+  my_filtered_bookings: {
+    bookings: Booking[] | null,
+    error: string | null,
+    status: 'initial' | 'loading' | 'error' | 'success',
   }
 }
 
@@ -41,6 +57,16 @@ export const initialState: BookingsState = {
     status: 'initial'
   },
   filtered_bookings: {
+    bookings: null,
+    error: null,
+    status: 'initial'
+  },
+  my_bookings: {
+    bookings: null,
+    error: null,
+    status: 'initial'
+  },
+  my_filtered_bookings: {
     bookings: null,
     error: null,
     status: 'initial'
@@ -142,6 +168,63 @@ export const bookingsReducer = createReducer(
     ...state,
     filtered_bookings: {
       ...state.filtered_bookings,
+      bookings: null,
+      status: 'initial',
+      error: null
+    }
+  })),
+  on(loadMySeatBookings, (state) => ({
+    ...state,
+    my_bookings: {
+      ...state.my_bookings,
+      status: 'loading'
+    }
+  })),
+  on(loadMySeatBookingsSuccess, (state, {payload}) => ({
+    ...state,
+    my_bookings: {
+      ...state.my_bookings,
+      bookings: payload.bookings,
+      status: 'success',
+      error: null
+    }
+  })),
+  on(loadMySeatBookingsFailure, (state, {error}) => ({
+    ...state,
+    my_bookings: {
+      ...state.my_bookings,
+      status: 'error',
+      error: error
+    }
+  })),
+  on(loadMyFilteredBookings, (state) => ({
+    ...state,
+    my_filtered_bookings: {
+      ...state.my_filtered_bookings,
+      status: 'loading'
+    }
+  })),
+  on(loadMyFilteredBookingsSuccess, (state, {payload}) => ({
+    ...state,
+    my_filtered_bookings: {
+      ...state.my_filtered_bookings,
+      bookings: payload.bookings,
+      error: null,
+      status: 'success',
+    }
+  })),
+  on(loadMyFilteredBookingsFailure, (state) => ({
+    ...state,
+    my_filtered_bookings: {
+      ...state.my_filtered_bookings,
+      error: `There was an error loading the data.`,
+      status: 'error'
+    }
+  })),
+  on(clearMyFilteredBookingsResults, (state) => ({
+    ...state,
+    my_filtered_bookings: {
+      ...state.my_filtered_bookings,
       bookings: null,
       status: 'initial',
       error: null

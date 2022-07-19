@@ -84,15 +84,36 @@ export const clearFilterBookingsResults = createAction(
 )
 
 export const loadMySeatBookings = createAction(
-  "[User Bookings] Load My Seat Bookings"
+  "[User Bookings] Load My Seat Bookings",
+  props<{payload: { userId: number | undefined}}>()
 )
 
 export const loadMySeatBookingsSuccess = createAction(
-  "[User Bookings] Load My Seat Bookings",
+  "[User Bookings] Load My Seat Bookings Success",
   props<{payload: { bookings: Booking[] }}>()
 )
 
 export const loadMySeatBookingsFailure = createAction(
-  "[User Bookings] Load My Seat Bookings",
+  "[User Bookings] Load My Seat Bookings Failure",
   props<{ error: string }>()
+)
+
+
+export const loadMyFilteredBookings = createAction(
+  "[User Bookings] Load My Filtered Bookings",
+  props<{ payload: { userId: number | undefined, filters: any } }>()
+)
+
+export const loadMyFilteredBookingsSuccess = createAction(
+  "[User Bookings] Load My Filtered Bookings Success",
+  props<{ payload: { bookings: Booking[] } }>()
+)
+
+
+export const loadMyFilteredBookingsFailure = createAction(
+  "[User Bookings] Load My Filtered Bookings Failure",
+)
+
+export const clearMyFilteredBookingsResults = createAction(
+  "[User Bookings] Clear My Filtered Bookings Results",
 )

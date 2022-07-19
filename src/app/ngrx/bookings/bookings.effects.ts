@@ -9,18 +9,23 @@ import {
   bookSeatSuccess,
   deleteBooking,
   deleteBookingFailure,
-  deleteBookingSuccess,
   loadBookings,
   loadBookingsFailure,
   loadBookingsSuccess,
-  loadFilteredBookings, loadFilteredBookingsFailure,
+  loadFilteredBookings,
+  loadFilteredBookingsFailure,
   loadFilteredBookingsSuccess,
+  loadMyFilteredBookings, loadMyFilteredBookingsFailure, loadMyFilteredBookingsSuccess,
+  loadMySeatBookings,
+  loadMySeatBookingsFailure,
+  loadMySeatBookingsSuccess,
   loadSeatBookings,
   loadSeatBookingsFailure,
   loadSeatBookingsSuccess
 } from "./bookings.actions";
 import {BookingService} from "../../services/booking/booking.service";
-import {getBookings, getSeatBookings} from "./bookings.selectors";
+import {getSeatBookings} from "./bookings.selectors";
+import {getUser} from "../auth/auth.selectors";
 
 @Injectable()
 export class BookingsEffects {
@@ -86,12 +91,12 @@ export class BookingsEffects {
   deleteBooking$ = createEffect(() =>
     this.actions$.pipe(
       ofType(deleteBooking),
-      withLatestFrom(this.store.select(getBookings)),
-      switchMap(([{payload}, bookings]) =>
+      withLatestFrom(this.store.select(getUser)),
+      switchMap(([{payload}, user]) =>
         from(this.bookingService.deleteBooking(payload.bookingId).pipe(
           map(() => {
-            let changedList = bookings ? bookings?.filter(b => b.id !== payload.bookingId) : [];
-            return deleteBookingSuccess({payload: {bookings: changedList}});
+            loadBookings();
+            return loadMySeatBookings({payload: {userId: user?.id}});
           }),
           catchError((error) => {
             return of(deleteBookingFailure(error));
@@ -110,6 +115,34 @@ export class BookingsEffects {
             return loadFilteredBookingsSuccess({payload: {bookings: data}})
           }),
           catchError(() => of(loadFilteredBookingsFailure()))
+        )
+      )
+    )
+  );
+
+  mySeatBookings$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(loadMySeatBookings),
+      switchMap(({payload}) =>
+        from(this.bookingService.loadMySeatBookings(payload.userId)).pipe(
+          map((data) => {
+            return loadMySeatBookingsSuccess({payload: {bookings: data}})
+          }),
+          catchError(() => of(loadMySeatBookingsFailure))
+        )
+      )
+    )
+  )
+
+  myFilteredBookings$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(loadMyFilteredBookings),
+      switchMap(({payload}) =>
+        from(this.bookingService.loadMyFilteredBookings(payload.userId, payload.filters)).pipe(
+          map((data) => {
+            return loadMyFilteredBookingsSuccess({payload: {bookings: data}})
+          }),
+          catchError(() => of(loadMyFilteredBookingsFailure()))
         )
       )
     )

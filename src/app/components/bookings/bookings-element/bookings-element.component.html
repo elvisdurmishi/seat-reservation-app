@@ -1,9 +1,9 @@
 <td>{{booking.id}}</td>
-<td>{{seatId ? booking.userId : booking.seatId}}</td>
+<td>{{inProfile ? booking.seatId : booking.userId}}</td>
 <td>{{booking.userName}}</td>
 <td>{{parseDate(booking.date.from)}}</td>
 <td>{{parseDate(booking.date.to)}}</td>
 <td class="d-flex justify-content-end gap-2">
-  <button class="btn btn-secondary" (click)="editBooking(booking)">Edit</button>
-  <button class="btn btn-danger" (click)="deleteBooking(booking)">Delete</button>
+  <button *ngIf="!inProfile" class="btn btn-secondary" (click)="editBooking(booking)">Edit</button>
+  <button class="btn btn-danger" [disabled]="!canDelete(booking)" (click)="deleteBooking(booking)">Delete</button>
 </td>

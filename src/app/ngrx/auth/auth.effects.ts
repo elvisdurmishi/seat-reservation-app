@@ -19,6 +19,7 @@ import {Router} from "@angular/router";
 import {loadSeats} from "../seats/seats.actions";
 import {User} from "../../model/User";
 import {loadUsers} from "../users/users.actions";
+import {loadMySeatBookings} from "../bookings/bookings.actions";
 
 @Injectable()
 export class AuthEffects {
@@ -32,6 +33,7 @@ export class AuthEffects {
 
   dispatchAlternativeActions(user: User) {
     this.store.dispatch(loadSeats());
+    this.store.dispatch(loadMySeatBookings({payload: {userId: user?.id}}));
     if(user.role === 'manager') {
       this.store.dispatch(loadUsers());
     }
