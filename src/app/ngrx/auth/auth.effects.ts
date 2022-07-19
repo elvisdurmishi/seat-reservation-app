@@ -13,11 +13,13 @@ import {
   registerFailure,
   registerSuccess
 } from "./auth.actions";
-import {catchError, from, map, of, switchMap, tap} from "rxjs";
+import {catchError, from, map, of, switchMap} from "rxjs";
 import {CookieService} from "ngx-cookie-service";
 import {Router} from "@angular/router";
 import {loadSeats} from "../seats/seats.actions";
 import {loadBookings} from "../bookings/bookings.actions";
+import {User} from "../../model/User";
+import {loadUsers} from "../users/users.actions";
 
 @Injectable()
 export class AuthEffects {
@@ -29,9 +31,12 @@ export class AuthEffects {
     private router: Router
   ) { }
 
-  dispatchAlternativeActions() {
+  dispatchAlternativeActions(user: User) {
     this.store.dispatch(loadSeats());
     this.store.dispatch(loadBookings());
+    if(user.role === 'manager') {
+      this.store.dispatch(loadUsers());
+    }
   }
 
   login$ = createEffect(() =>
@@ -54,9 +59,9 @@ export class AuthEffects {
   loginSuccess$ = createEffect(() =>
     this.actions$.pipe(
       ofType(loginSuccess),
-      switchMap(() => {
+      switchMap(({payload}) => {
         console.log("logged success");
-        this.dispatchAlternativeActions();
+        this.dispatchAlternativeActions(payload.user);
         return this.router.navigate(['/']);
       })
     ), { dispatch: false }
@@ -113,8 +118,8 @@ export class AuthEffects {
   loadUserSuccess$ = createEffect(() =>
     this.actions$.pipe(
       ofType(loadUserSuccess),
-      switchMap(() => {
-        this.dispatchAlternativeActions();
+      switchMap(({payload}) => {
+        this.dispatchAlternativeActions(payload.user);
         return this.router.navigate(['/']);
       })
     ), { dispatch: false }

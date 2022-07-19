@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {NgbCalendar, NgbDate, NgbDateParserFormatter} from "@ng-bootstrap/ng-bootstrap";
 import {faCalendar} from "@fortawesome/free-solid-svg-icons";
 
@@ -8,27 +8,18 @@ import {faCalendar} from "@fortawesome/free-solid-svg-icons";
   styleUrls: ['./datepicker.component.scss']
 })
 export class DatepickerComponent implements OnInit {
-  fromDate: NgbDate | null;
-  toDate: NgbDate | null;
+  @Input() fromDate!: NgbDate | null;
+  @Input() toDate!: NgbDate | null;
+  @Output() onDateSelection = new EventEmitter();
   hoveredDate: NgbDate | null = null;
   faCalendar = faCalendar;
 
-  constructor(private calendar: NgbCalendar, public formatter: NgbDateParserFormatter) {
-    this.fromDate = calendar.getToday();
-    this.toDate = calendar.getNext(calendar.getToday(), 'd', 10);
-  }
+  constructor(private calendar: NgbCalendar, public formatter: NgbDateParserFormatter) {}
 
   ngOnInit(): void {}
 
-  onDateSelection(date: NgbDate) {
-    if (!this.fromDate && !this.toDate) {
-      this.fromDate = date;
-    } else if (this.fromDate && !this.toDate && date && date.after(this.fromDate)) {
-      this.toDate = date;
-    } else {
-      this.toDate = null;
-      this.fromDate = date;
-    }
+  onSelect(date: NgbDate) {
+    this.onDateSelection.emit(date);
   }
 
   isHovered(date: NgbDate) {

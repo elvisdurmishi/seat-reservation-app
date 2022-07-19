@@ -16,24 +16,25 @@ export class BookingsComponent implements OnInit {
   bookings$ = this.store.select(getSeatBookings);
   status$ = this.store.select(getSeatBookingStatus);
   error$ = this.store.select(getSeatBookingError);
+  seatId: number;
 
   constructor(
     private store: Store<AppState>,
     private route: ActivatedRoute
     ) {
-    let params = route.snapshot.params;
-    this.store.dispatch(loadSeatBookings({payload: {seatId: params['id']}}));
+    this.seatId = route.snapshot.params['id'];
+    this.store.dispatch(loadSeatBookings({payload: {seatId: this.seatId}}));
   }
 
   ngOnInit(): void {
   }
 
   openBookingModal() {
-    this.store.dispatch(openBookingModal({payload: {booking: null}}));
+    this.store.dispatch(openBookingModal({payload: {booking: null, seatId: this.seatId}}));
   }
 
   editBooking(booking: Booking) {
-    console.log("booking", booking);
+    this.store.dispatch(openBookingModal({payload: {booking: booking, seatId: this.seatId}}))
   }
 
   deleteBooking(booking: Booking) {

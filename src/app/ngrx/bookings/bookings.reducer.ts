@@ -1,6 +1,6 @@
 import {createReducer, on} from "@ngrx/store";
 import {Booking} from "../../model/Booking";
-import {loadBookings, loadBookingsFailure, loadBookingsSuccess} from "./bookings.actions";
+import {bookSeatSuccess, loadBookings, loadBookingsFailure, loadBookingsSuccess} from "./bookings.actions";
 
 export interface BookingsState {
   bookings: Booking[] | null,
@@ -30,5 +30,9 @@ export const bookingsReducer = createReducer(
     ...state,
     error: `There was an error loading the data.`,
     status: 'error'
+  })),
+  on(bookSeatSuccess, (state, {payload}) => ({
+    ...state,
+    bookings: payload.bookings
   })),
 )

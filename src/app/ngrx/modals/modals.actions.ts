@@ -9,5 +9,5 @@ export const openSeatModal = createAction(
 
 export const openBookingModal = createAction(
   "[Manager Dashboard] Open Booking Modal",
-  props<{payload: {booking: Booking | null}}>()
+  props<{payload: {booking: Booking | null, seatId: number}}>()
 )

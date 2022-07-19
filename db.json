@@ -56,12 +56,12 @@
       "id": 1,
       "userId": 1,
       "userName": "Elvis",
-      "seatId": 2,
+      "seatId": "2",
       "date": {
         "from": {
           "year": 2022,
           "month": 7,
-          "day": 19
+          "day": 20
         },
         "to": {
           "year": 2022,
@@ -87,6 +87,42 @@
           "day": 28
         }
       }
+    },
+    {
+      "seatId": "2",
+      "userId": "1",
+      "userName": "Elvis",
+      "date": {
+        "from": {
+          "year": 2022,
+          "month": 7,
+          "day": 20
+        },
+        "to": {
+          "year": 2022,
+          "month": 7,
+          "day": 20
+        }
+      },
+      "id": 3
+    },
+    {
+      "seatId": "2",
+      "userId": "1",
+      "userName": "Elvis",
+      "date": {
+        "from": {
+          "year": 2022,
+          "month": 7,
+          "day": 21
+        },
+        "to": {
+          "year": 2022,
+          "month": 7,
+          "day": 21
+        }
+      },
+      "id": 4
     }
   ]
 }

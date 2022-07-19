@@ -13,3 +13,18 @@ export const loadBookingsSuccess = createAction(
 export const loadBookingsFailure = createAction(
   "[Dashboard] Load Bookings Failure",
 )
+
+export const bookSeat = createAction(
+  "[Dashboard] Book Seat",
+  props<{ payload: {booking: Booking} }>()
+)
+
+export const bookSeatSuccess = createAction(
+  "[Dashboard] Book Seat Success",
+  props<{ payload: {bookings: Booking[]} }>()
+)
+
+export const bookSeatFailure = createAction(
+  "[Dashboard] Book Seat Failure",
+  props<{ error: string }>()
+)
