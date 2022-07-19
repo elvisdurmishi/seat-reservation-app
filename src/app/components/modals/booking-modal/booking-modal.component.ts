@@ -52,7 +52,7 @@ export class BookingModalComponent implements OnInit, OnDestroy {
     this.bookings$ = this.store.select(getBookings).pipe(
       withLatestFrom(this.user$),
       map(([bookings, user]) => {
-        bookings?.forEach((booking) => booking.seatId == this.seatId && (booking.userId !== user?.id)
+        bookings?.forEach((booking) => booking.seatId == this.seatId && (booking.userId != user?.id)
           ? this.disabledDates = [...this.disabledDates, booking.date]
           : this.disabledDates = [...this.disabledDates])
         return this.disabledDates;
