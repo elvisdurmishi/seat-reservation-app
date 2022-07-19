@@ -10,13 +10,16 @@
       <div class="col-sm-12 d-flex flex-column">
         <label for="seat-name">Number</label>
         <input id="seat-name" type="number" name="number" min="1" max="100" class="form-control" formControlName="number" />
-        <div *ngIf="number?.invalid && (number?.dirty || number?.touched)"
+        <div *ngIf="number?.invalid"
              class="text-danger px-0">
           <div *ngIf="number?.errors?.['required']">
             Number is required.
           </div>
           <div *ngIf="number?.errors?.['min'] || number?.errors?.['max']">
             Number must be between 1 and 100.
+          </div>
+          <div *ngIf="number?.errors?.['invalidSeat']">
+            A seat with this number already exists.
           </div>
         </div>
       </div>

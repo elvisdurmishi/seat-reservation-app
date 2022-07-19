@@ -41,11 +41,6 @@
       "number": 1,
       "location": "main",
       "id": 4
-    },
-    {
-      "number": 3,
-      "location": "second",
-      "id": 5
     }
   ],
   "bookings": [

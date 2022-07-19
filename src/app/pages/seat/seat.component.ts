@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {
   getFilteredSeats,
   getFilteredSeatsError,
@@ -20,7 +20,7 @@ import {openSeatModal} from "../../ngrx/modals/modals.actions";
   templateUrl: './seat.component.html',
   styleUrls: ['./seat.component.scss']
 })
-export class SeatComponent implements OnInit {
+export class SeatComponent implements OnInit, OnDestroy {
   seats$ = this.store.select(getFilteredSeats).pipe(
     mergeMap((seats) =>
       iif(() => seats === null, this.store.select(getSeats), of(seats)),

@@ -1,10 +1,12 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {NgbActiveModal, NgbModalConfig} from "@ng-bootstrap/ng-bootstrap";
 import {Store} from "@ngrx/store";
 import {AppState} from "../../../ngrx/app.state";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Seat} from "../../../model/Seat";
 import {saveSeat} from "../../../ngrx/seats/seats.actions";
+import {getSeats} from "../../../ngrx/seats/seats.selectors";
+import {map} from "rxjs";
 
 @Component({
   selector: 'app-seat-modal',
@@ -12,9 +14,11 @@ import {saveSeat} from "../../../ngrx/seats/seats.actions";
   styleUrls: ['./seat-modal.component.scss'],
   providers: [NgbModalConfig]
 })
-export class SeatModalComponent implements OnInit {
+export class SeatModalComponent implements OnInit, OnDestroy {
   @Input() seat!: Seat | null;
   seatForm: FormGroup;
+  seats$;
+  busyNumbers: number[] = [];
 
   ngOnInit(): void {
     const {seat} = this;
@@ -22,6 +26,10 @@ export class SeatModalComponent implements OnInit {
       this.seatForm.get('number')?.setValue(seat.number);
       this.seatForm.get('location')?.setValue(seat.location);
     }
+  }
+
+  ngOnDestroy() {
+    this.seats$.unsubscribe();
   }
 
   constructor(
@@ -37,6 +45,13 @@ export class SeatModalComponent implements OnInit {
       number: [1, {validators: [Validators.required, Validators.min(1), Validators.max(100)]}],
       location: ['main'],
     })
+
+    this.seats$ = this.store.select(getSeats).pipe(
+      map((seats) => {
+        let result = seats?.flatMap((seat) => seat.location == this.location?.getRawValue() ? seat.number : [])
+        return result ? result : [];
+      })
+    ).subscribe((val) => this.busyNumbers = val);
   }
 
   closeModal() {
@@ -62,8 +77,14 @@ export class SeatModalComponent implements OnInit {
   }
 
   hasErrors(){
+    this.number?.setErrors(this.isInvalidSeat() ? {invalidSeat: true} : null)
+
     return Object.entries(this.seatForm.getRawValue()).some(([key]) => {
       return !this.seatForm.get(key)?.valid;
     })
+  }
+
+  isInvalidSeat() {
+    return this.busyNumbers.indexOf(this.number?.getRawValue()) > -1
   }
 }
