@@ -33,7 +33,7 @@ export class SeatService {
     let query = '';
 
     Object.entries(filters).forEach(([key, value]) => {
-      if(value && value !== 'all') {
+      if(value && value !== 'all' && value !== 'status') {
         query += query.length > 0 ? `&${key}=${value}` : `?${key}=${value}`
       }
     })

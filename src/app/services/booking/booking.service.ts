@@ -24,4 +24,8 @@ export class BookingService {
 
     return this.http.postRequest(`/bookings`, booking, '/660')
   }
+
+  deleteBooking(bookingId: number) {
+    return this.http.deleteRequest(`/bookings/${bookingId}`);
+  }
 }

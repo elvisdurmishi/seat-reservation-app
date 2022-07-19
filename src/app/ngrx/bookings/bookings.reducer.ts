@@ -1,6 +1,12 @@
 import {createReducer, on} from "@ngrx/store";
 import {Booking} from "../../model/Booking";
-import {bookSeatSuccess, loadBookings, loadBookingsFailure, loadBookingsSuccess} from "./bookings.actions";
+import {
+  bookSeatSuccess,
+  deleteBookingSuccess,
+  loadBookings,
+  loadBookingsFailure,
+  loadBookingsSuccess
+} from "./bookings.actions";
 
 export interface BookingsState {
   bookings: Booking[] | null,
@@ -32,6 +38,12 @@ export const bookingsReducer = createReducer(
     status: 'error'
   })),
   on(bookSeatSuccess, (state, {payload}) => ({
+    ...state,
+    bookings: payload.bookings,
+    error: null,
+    status: 'success',
+  })),
+  on(deleteBookingSuccess, (state, {payload}) => ({
     ...state,
     bookings: payload.bookings
   })),

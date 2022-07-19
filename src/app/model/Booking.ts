@@ -1,7 +1,7 @@
 import {DateRange} from "./DateRange";
 
 export interface Booking {
-  id?: number,
+  id: number,
   userId: number,
   userName: string,
   seatId: number,

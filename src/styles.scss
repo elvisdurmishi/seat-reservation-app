@@ -110,6 +110,13 @@ table {
   }
 }
 
+.ngb-dp-day.disabled {
+  background-color: $disabled-color;
+  &:hover {
+    cursor: not-allowed;
+  }
+}
+
 /* HELPERS */
 .flex-center {
   display: flex;

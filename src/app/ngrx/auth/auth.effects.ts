@@ -60,7 +60,6 @@ export class AuthEffects {
     this.actions$.pipe(
       ofType(loginSuccess),
       switchMap(({payload}) => {
-        console.log("logged success");
         this.dispatchAlternativeActions(payload.user);
         return this.router.navigate(['/']);
       })

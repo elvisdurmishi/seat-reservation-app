@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {NgbActiveModal, NgbCalendar, NgbDate} from "@ng-bootstrap/ng-bootstrap";
 import {Booking} from "../../../model/Booking";
 import {getUsers} from "../../../ngrx/users/users.selectors";
@@ -6,19 +6,26 @@ import {Store} from "@ngrx/store";
 import {AppState} from "../../../ngrx/app.state";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {bookSeat} from "../../../ngrx/bookings/bookings.actions";
+import {getBookings} from "../../../ngrx/bookings/bookings.selectors";
+import {map, withLatestFrom} from "rxjs";
+import {DateRange} from "../../../model/DateRange";
+import {getUser} from "../../../ngrx/auth/auth.selectors";
 
 @Component({
   selector: 'app-booking-modal',
   templateUrl: './booking-modal.component.html',
   styleUrls: ['./booking-modal.component.scss']
 })
-export class BookingModalComponent implements OnInit {
+export class BookingModalComponent implements OnInit, OnDestroy {
   @Input() booking!: Booking | null;
   @Input() seatId!: number | null;
   users$ = this.store.select(getUsers);
   fromDate: NgbDate | null;
   toDate: NgbDate | null;
   bookingForm: FormGroup;
+  disabledDates: DateRange[] = [];
+  user$ = this.store.select(getUser);
+  bookings$: any;
 
   constructor(
     private store: Store<AppState>,
@@ -42,8 +49,16 @@ export class BookingModalComponent implements OnInit {
 
   ngOnInit(): void {
     const {seatId, booking, userId, userName, date} = this;
-    this.formSeatId?.setValue(seatId);
+    this.formSeatId?.setValue(Number(seatId));
 
+    this.bookings$ = this.store.select(getBookings).pipe(
+      withLatestFrom(this.user$),
+      map(([bookings, user]) => {
+        bookings?.forEach((booking) => booking.seatId == this.seatId && (booking.userId !== user?.id)
+          ? this.disabledDates = [...this.disabledDates, booking.date]
+          : this.disabledDates = [...this.disabledDates])
+        return this.disabledDates;
+      })).subscribe();
 
     if(booking) {
       userId?.setValue(booking.userId);
@@ -55,19 +70,15 @@ export class BookingModalComponent implements OnInit {
     }
   }
 
-  onDateSelection(date: NgbDate) {
-    if (!this.fromDate && !this.toDate) {
-      this.date?.setValue({...this.date?.getRawValue(), from: date});
-      this.fromDate = date;
-    } else if (this.fromDate && !this.toDate && date && (date.equals(this.fromDate) || date.after(this.fromDate))) {
-      this.date?.setValue({...this.date?.getRawValue(), to: date});
-      this.toDate = date;
-    } else {
-      this.date?.setValue({...this.date?.getRawValue(), to: null});
-      this.date?.setValue({...this.date?.getRawValue(), from: date});
-      this.toDate = null;
-      this.fromDate = date;
-    }
+  ngOnDestroy(): void {
+    this.bookings$.unsubscribe();
+  }
+
+  onDateSelection(dateRange: DateRange) {
+    this.date?.setValue({...this.date?.getRawValue(), from: dateRange.from});
+    this.date?.setValue({...this.date?.getRawValue(), to: dateRange.to});
+
+    this.isInvalidDate(dateRange);
   }
 
   closeModal() {
@@ -107,6 +118,28 @@ export class BookingModalComponent implements OnInit {
   hasErrors(){
     return Object.entries(this.bookingForm.getRawValue()).some(([key]) => {
       return !this.bookingForm.get(key)?.valid;
+    })
+  }
+
+  isInvalidDate(date: DateRange) {
+    const {from, to} = date;
+
+    if(!to) {
+      this.date?.setErrors({invalidRange: true})
+      return true;
+    }
+
+    let currentFrom = new Date(from.year, from.month - 1, from.day);
+    let currentTo = new Date(to.year, to.month - 1, to.day);
+
+    return this.disabledDates.some((date) => {
+      const {from, to} = date;
+      let fromDate = new Date(from.year, from.month - 1, from.day);
+      let toDate   = new Date(to.year, to.month - 1, to.day);
+
+      let invalidRange = currentFrom <= fromDate && currentTo >= toDate;
+      this.date?.setErrors({invalidRange: invalidRange})
+      return invalidRange;
     })
   }
 }

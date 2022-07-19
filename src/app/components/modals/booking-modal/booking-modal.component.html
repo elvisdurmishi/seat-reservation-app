@@ -21,7 +21,13 @@
         </div>
       </div>
       <div class="col-sm-12 d-flex flex-column">
-        <app-datepicker [fromDate]="fromDate" [toDate]="toDate" (onDateSelection)="onDateSelection($event)"></app-datepicker>
+        <app-datepicker [fromDate]="fromDate" [toDate]="toDate" [disabledDates]="disabledDates" (onDateSelection)="onDateSelection($event)"></app-datepicker>
+        <div *ngIf="date?.invalid"
+             class="text-danger px-0">
+          <div *ngIf="date?.errors?.['invalidRange']">
+            Date range is invalid.
+          </div>
+        </div>
       </div>
     </div>
   </form>

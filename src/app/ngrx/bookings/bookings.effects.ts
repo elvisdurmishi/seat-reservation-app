@@ -6,7 +6,7 @@ import {catchError, from, map, of, switchMap, withLatestFrom} from "rxjs";
 import {
   bookSeat,
   bookSeatFailure,
-  bookSeatSuccess,
+  bookSeatSuccess, deleteBooking, deleteBookingFailure, deleteBookingSuccess,
   loadBookings,
   loadBookingsFailure,
   loadBookingsSuccess
@@ -55,6 +55,24 @@ export class BookingsEffects {
           }),
           catchError((error) => {
             return of(bookSeatFailure(error));
+          })
+        ))
+      )
+    )
+  )
+
+  deleteBooking$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(deleteBooking),
+      withLatestFrom(this.store.select(getBookings)),
+      switchMap(([{payload}, bookings]) =>
+        from(this.bookingService.deleteBooking(payload.bookingId).pipe(
+          map(() => {
+            let changedList = bookings ? bookings?.filter(b => b.id !== payload.bookingId) : [];
+            return deleteBookingSuccess({payload: {bookings: changedList}});
+          }),
+          catchError((error) => {
+            return of(deleteBookingFailure(error));
           })
         ))
       )

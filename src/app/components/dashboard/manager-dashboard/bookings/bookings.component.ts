@@ -6,6 +6,7 @@ import {getSeatBookingError, getSeatBookings, getSeatBookingStatus} from "../../
 import {ActivatedRoute} from "@angular/router";
 import {loadSeatBookings} from "../../../../ngrx/seats/seats.actions";
 import {openBookingModal} from "../../../../ngrx/modals/modals.actions";
+import {deleteBooking} from "../../../../ngrx/bookings/bookings.actions";
 
 @Component({
   selector: 'app-bookings',
@@ -38,7 +39,7 @@ export class BookingsComponent implements OnInit {
   }
 
   deleteBooking(booking: Booking) {
-    console.log("booking", booking);
+    this.store.dispatch(deleteBooking({payload: {bookingId: booking.id}}))
   }
 
   parseDate(date: any) {

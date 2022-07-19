@@ -28,3 +28,18 @@ export const bookSeatFailure = createAction(
   "[Dashboard] Book Seat Failure",
   props<{ error: string }>()
 )
+
+export const deleteBooking = createAction(
+  "[Manager Dashboard] Delete Booking",
+  props<{ payload: {bookingId: number}}>()
+)
+
+export const deleteBookingSuccess = createAction(
+  "[Manager Dashboard] Delete Booking Success",
+  props<{ payload: {bookings: Booking[]} }>()
+)
+
+export const deleteBookingFailure = createAction(
+  "[Manager Dashboard] Delete Booking Failure",
+  props<{ error: string }>()
+)
