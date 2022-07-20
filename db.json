@@ -27,17 +27,6 @@
   ],
   "seats": [
     {
-      "number": 2,
-      "location": "second",
-      "id": 2,
-      "status": "busy"
-    },
-    {
-      "number": 3,
-      "location": "main",
-      "id": 3
-    },
-    {
       "number": 1,
       "location": "main",
       "id": 4
@@ -93,35 +82,57 @@
       "id": 14
     },
     {
-      "number": 1,
+      "number": 13,
       "location": "second",
-      "id": 15
+      "id": 17
     },
     {
-      "number": 3,
+      "number": 18,
       "location": "second",
-      "id": 16
+      "id": 18
+    },
+    {
+      "number": 62,
+      "location": "second",
+      "id": 19
+    },
+    {
+      "number": 73,
+      "location": "second",
+      "id": 20
+    },
+    {
+      "number": 84,
+      "location": "second",
+      "id": 21
+    },
+    {
+      "number": 85,
+      "location": "second",
+      "id": 22
+    },
+    {
+      "number": 86,
+      "location": "second",
+      "id": 23
+    },
+    {
+      "number": 87,
+      "location": "second",
+      "id": 24
+    },
+    {
+      "number": 78,
+      "location": "second",
+      "id": 25
+    },
+    {
+      "number": 69,
+      "location": "second",
+      "id": 26
     }
   ],
   "bookings": [
-    {
-      "seatId": 2,
-      "userId": "2",
-      "userName": "Manager",
-      "date": {
-        "from": {
-          "year": 2022,
-          "month": 7,
-          "day": 17
-        },
-        "to": {
-          "year": 2022,
-          "month": 7,
-          "day": 18
-        }
-      },
-      "id": 6
-    },
     {
       "seatId": 6,
       "userId": "2",

@@ -5,7 +5,7 @@
         <app-small-loader [loading]="status === 'loading'"></app-small-loader>
         <app-error [error]="status === 'error'" [text]="seatsError$ | async"></app-error>
         <div class="seat-grid-container">
-          <span app-seats-element *ngFor="let seat of seats$ | async ; index as i" [ngClass]="'seat-'+seat.number"
+          <span app-seats-element *ngFor="let seat of seats$ | async" [ngClass]="'seat-'+seat.number"
                 [seat]="seat"
                 (onBookSeat)="bookSeat($event)"
           ></span>
