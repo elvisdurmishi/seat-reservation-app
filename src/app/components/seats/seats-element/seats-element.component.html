@@ -1,0 +1,17 @@
+<button (mouseenter)="getSeatBookings()"
+        [ngbTooltip]="tipContent"
+        class="seat-element text-center flex-center flex-column border-0"
+        [ngClass]="seat.status === 'free' ? 'text-success' : 'text-danger'">
+  <span>{{seat.number}}</span>
+  <fa-icon [icon]="faChair" transform="shrink-1"></fa-icon>
+</button>
+<ng-template #tipContent>
+  <div *ngFor="let booking of seatBookings$ | async">
+    <div *ngIf="isActualBooking(booking.date)">
+      <p>Booked by: <b>{{booking.userName}}</b></p>
+      <p>Booking Time: </p>
+      <span class="word-break">{{booking.date | dateRange}}</span>
+    </div>
+  </div>
+  <div *ngIf="seat.status === 'free'">Free as a bird!</div>
+</ng-template>

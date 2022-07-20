@@ -1,0 +1,11 @@
+<div class="row">
+  <div class="col-sm-12">
+    <div class="card shadow-sm mt-3">
+      <div class="card-body">
+        <div class="seat-grid-container">
+          <span app-seats-element *ngFor="let seat of seats$ | async ; index as i" [ngClass]="'seat-'+seat.number" [seat]="seat"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

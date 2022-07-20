@@ -9,6 +9,18 @@ body {
   border-radius: 25px;
 }
 
+button, .btn {
+  outline: none;
+}
+
+.btn-check:checked + .btn-outline-primary:focus,
+.btn-check:active + .btn-outline-primary:focus,
+.btn-outline-primary:active:focus, .btn-outline-primary.active:focus,
+.btn-outline-primary.dropdown-toggle.show:focus,
+.btn-check:focus + .btn-outline-primary, .btn-outline-primary:focus{
+  box-shadow: none;
+}
+
 .btn-primary {
   background-color: $primary-color;
   border-color: $primary-color;

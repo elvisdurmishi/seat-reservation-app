@@ -8,9 +8,10 @@ import {ManagerAuthGuardGuard} from "../guards/manager-auth-guard.guard";
 import {SeatComponent} from "../pages/seat/seat.component";
 import {BookingsPageComponent} from "../pages/bookings-page/bookings-page.component";
 import {ProfileComponent} from "../pages/profile/profile.component";
+import {HomeComponent} from "../pages/home/home.component";
 
 export const routes: Routes = [
-  {path: "", component: DashboardComponent, canActivate: [AuthGuard]},
+  {path: "", component: HomeComponent, canActivate: [AuthGuard]},
   {path: "login", component: LoginComponent, canActivate: [LoggedInGuard]},
   {path: "register", component: RegisterComponent, canActivate: [LoggedInGuard]},
   {path: "profile", component: ProfileComponent, canActivate: [AuthGuard]},

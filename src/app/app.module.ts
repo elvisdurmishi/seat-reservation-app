@@ -36,6 +36,10 @@ import { BookingsElementComponent } from './components/bookings/bookings-element
 import {BookingsComponent} from "./components/bookings/bookings/bookings.component";
 import { BookingsPageComponent } from './pages/bookings-page/bookings-page.component';
 import { ProfileComponent } from './pages/profile/profile.component';
+import { HomeComponent } from './pages/home/home.component';
+import { SeatsListComponent } from './components/seats/seats-list/seats-list.component';
+import { SeatsElementComponent } from './components/seats/seats-element/seats-element.component';
+import { DateRangePipe } from './pipes/date-range.pipe';
 
 @NgModule({
   declarations: [
@@ -61,6 +65,10 @@ import { ProfileComponent } from './pages/profile/profile.component';
     BookingsPageComponent,
     BookingsComponent,
     ProfileComponent,
+    HomeComponent,
+    SeatsListComponent,
+    SeatsElementComponent,
+    DateRangePipe,
   ],
   imports: [
     BrowserModule,
