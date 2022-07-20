@@ -29,29 +29,14 @@ export class BookingModalComponent implements OnInit, OnDestroy {
   user$ = this.store.select(getUser);
   bookings$: any;
 
-  constructor(
-    private store: Store<AppState>,
-    private activeModal: NgbActiveModal,
-    private calendar: NgbCalendar,
-    private formBuilder: FormBuilder,
-  ) {
-
-    this.bookingForm = this.formBuilder.group({
-      seatId: [''],
-      userId: ['', {validators: [Validators.required], disabled: true}],
-      userName: [''],
-      date: [{
-        from: this.fromDate,
-        to: this.toDate,
-      }],
-    })
-  }
-
   ngOnInit(): void {
     const {seatId, user, booking, formUserId, formUserName, formDate} = this;
     this.formSeatId?.setValue(Number(seatId));
-    this.formUserId?.setValue(user?.id?.toString());
-    this.formUserName?.setValue(user?.name);
+
+    if(user) {
+      this.formUserId?.setValue(user?.id?.toString());
+      this.formUserName?.setValue(user?.name);
+    }
 
     this.store.dispatch(clearBookingsList());
     this.store.dispatch(loadSeatBookings({payload: {seatId: seatId}}));
@@ -66,8 +51,8 @@ export class BookingModalComponent implements OnInit, OnDestroy {
       })).subscribe();
 
     if(booking) {
-      formUserId?.setValue(booking.userId);
-      formUserName?.setValue(booking.userName);
+      formUserId?.setValue(booking.userId.toString());
+      formUserName?.setValue(booking.userName.toString());
 
       formDate?.setValue({...formDate?.getRawValue(), from: booking.date.from});
       this.fromDate = new NgbDate(booking.date.from.year, booking.date.from.month, booking.date.from.day);
@@ -78,6 +63,24 @@ export class BookingModalComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.bookings$.unsubscribe();
+  }
+
+  constructor(
+    private store: Store<AppState>,
+    private activeModal: NgbActiveModal,
+    private calendar: NgbCalendar,
+    private formBuilder: FormBuilder,
+  ) {
+
+    this.bookingForm = this.formBuilder.group({
+      seatId: [''],
+      userId: ['', {validators: [Validators.required]}],
+      userName: [''],
+      date: [{
+        from: this.fromDate,
+        to: this.toDate,
+      }],
+    })
   }
 
   onDateSelection(dateRange: DateRange) {

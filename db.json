@@ -91,6 +91,16 @@
       "number": 100,
       "location": "main",
       "id": 14
+    },
+    {
+      "number": 1,
+      "location": "second",
+      "id": 15
+    },
+    {
+      "number": 3,
+      "location": "second",
+      "id": 16
     }
   ],
   "bookings": [

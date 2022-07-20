@@ -18,6 +18,7 @@ export class SeatModalComponent implements OnInit, OnDestroy {
   @Input() seat!: Seat | null;
   seatForm: FormGroup;
   seats$;
+  seats: Seat[] = [];
   busyNumbers: number[] = [];
 
   ngOnInit(): void {
@@ -47,11 +48,8 @@ export class SeatModalComponent implements OnInit, OnDestroy {
     })
 
     this.seats$ = this.store.select(getSeats).pipe(
-      map((seats) => {
-        let result = seats?.flatMap((seat) => seat.location == this.location?.getRawValue() ? seat.number : [])
-        return result ? result : [];
-      })
-    ).subscribe((val) => this.busyNumbers = val);
+      map((seats) => this.seats = seats ? seats : [])
+    ).subscribe();
   }
 
   closeModal() {
@@ -85,6 +83,7 @@ export class SeatModalComponent implements OnInit, OnDestroy {
   }
 
   isInvalidSeat() {
+    this.busyNumbers = this.seats?.flatMap((seat) => seat.location == this.location?.getRawValue() ? seat.number : []);
     return this.busyNumbers.indexOf(this.number?.getRawValue()) > -1
   }
 }
