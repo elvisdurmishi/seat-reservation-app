@@ -35,6 +35,7 @@ export class ModalsEffects {
         let modalRef = this.modalService.open(BookingModalComponent);
         modalRef.componentInstance.booking = payload.booking;
         modalRef.componentInstance.seatId = payload.seatId;
+        modalRef.componentInstance.user = payload.user;
         return of(modalRef);
       })
     ), {dispatch: false}

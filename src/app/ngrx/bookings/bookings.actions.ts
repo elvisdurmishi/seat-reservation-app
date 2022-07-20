@@ -31,7 +31,7 @@ export const bookSeatFailure = createAction(
 
 export const deleteBooking = createAction(
   "[Manager Dashboard] Delete Booking",
-  props<{ payload: {bookingId: number}}>()
+  props<{ payload: {booking: Booking}}>()
 )
 
 export const deleteBookingSuccess = createAction(

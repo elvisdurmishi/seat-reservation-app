@@ -7,24 +7,24 @@
 <div class="modal-body">
   <form class="form-group" [formGroup]="bookingForm">
     <div class="row gap-3">
-      <div class="col-sm-12 d-flex flex-column">
+      <div class="col-sm-12 d-flex flex-column" *ngIf="!user">
         <label for="users-list" class="form-label">Users</label>
         <select class="form-select" id="users-list" formControlName="userId" #users (change)="setUserName(users.options[users.options.selectedIndex].text)">
           <option selected>-- Select a user --</option>
           <option [value]="user.id" *ngFor="let user of users$ | async">{{user.name}}</option>
         </select>
-        <div *ngIf="userId?.invalid && (userId?.dirty || userId?.touched)"
+        <div *ngIf="formUserId?.invalid && (formUserId?.dirty || formUserId?.touched)"
              class="text-danger px-0">
-          <div *ngIf="userId?.errors?.['required']">
+          <div *ngIf="formUserId?.errors?.['required']">
             User is required.
           </div>
         </div>
       </div>
       <div class="col-sm-12 d-flex flex-column">
-        <app-datepicker [fromDate]="fromDate" [toDate]="toDate" [disabledDates]="disabledDates" (onDateSelection)="onDateSelection($event)"></app-datepicker>
-        <div *ngIf="date?.invalid"
+        <app-datepicker [fromDate]="fromDate" [hasMinDate]="true" [toDate]="toDate" [disabledDates]="disabledDates" (onDateSelection)="onDateSelection($event)"></app-datepicker>
+        <div *ngIf="formDate?.invalid"
              class="text-danger px-0">
-          <div *ngIf="date?.errors?.['invalidRange']">
+          <div *ngIf="formDate?.errors?.['invalidRange']">
             Date range is invalid.
           </div>
         </div>

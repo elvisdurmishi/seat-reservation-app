@@ -6,7 +6,6 @@ import {catchError, from, map, of, switchMap, withLatestFrom} from "rxjs";
 import {
   bookSeat,
   bookSeatFailure,
-  bookSeatSuccess,
   deleteBooking,
   deleteBookingFailure,
   loadBookings,
@@ -24,7 +23,6 @@ import {
   loadSeatBookingsSuccess
 } from "./bookings.actions";
 import {BookingService} from "../../services/booking/booking.service";
-import {getSeatBookings} from "./bookings.selectors";
 import {getUser} from "../auth/auth.selectors";
 
 @Injectable()
@@ -53,18 +51,11 @@ export class BookingsEffects {
   bookSeat$ = createEffect(() =>
     this.actions$.pipe(
       ofType(bookSeat),
-      withLatestFrom(this.store.select(getSeatBookings)),
-      switchMap(([{payload}, bookings]) =>
+      switchMap(({payload}) =>
         from(this.bookingService.bookSeat(payload.booking).pipe(
-          map((data) => {
-            let changedList = bookings ? bookings : [];
-            if(!payload.booking.id) {
-              changedList = [...changedList, data];
-            } else {
-              changedList = bookings ? bookings?.map(b => b.id === data.id ? data : b) : [];
-            }
-
-            return bookSeatSuccess({payload: {bookings: changedList}});
+          map(() => {
+            this.store.dispatch(loadSeatBookings({payload: {seatId: payload.booking.seatId}}));
+            return loadBookings();
           }),
           catchError((error) => {
             return of(bookSeatFailure(error));
@@ -93,9 +84,10 @@ export class BookingsEffects {
       ofType(deleteBooking),
       withLatestFrom(this.store.select(getUser)),
       switchMap(([{payload}, user]) =>
-        from(this.bookingService.deleteBooking(payload.bookingId).pipe(
+        from(this.bookingService.deleteBooking(payload.booking.id).pipe(
           map(() => {
-            loadBookings();
+            this.store.dispatch(loadBookings());
+            this.store.dispatch(loadSeatBookings({payload: {seatId: payload.booking.seatId}}));
             return loadMySeatBookings({payload: {userId: user?.id}});
           }),
           catchError((error) => {

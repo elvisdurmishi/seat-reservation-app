@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Seat} from "../../../model/Seat";
 import {faChair} from "@fortawesome/free-solid-svg-icons";
 import {Store} from "@ngrx/store";
@@ -14,6 +14,7 @@ import {DateRange} from "../../../model/DateRange";
 })
 export class SeatsElementComponent implements OnInit {
   @Input() seat!: Seat;
+  @Output() onBookSeat = new EventEmitter();
   seatBookings$ = this.store.select(getSeatBookings);
   faChair = faChair;
   timeout: any;
@@ -51,5 +52,9 @@ export class SeatsElementComponent implements OnInit {
     let toDate   = new Date(to.year, to.month - 1, to.day);
 
     return today > fromDate && today < toDate;
+  }
+
+  bookSeat(seat: Seat) {
+    this.onBookSeat.emit(seat);
   }
 }

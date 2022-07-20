@@ -1,6 +1,7 @@
 import {createAction, props} from "@ngrx/store";
 import {Seat} from "../../model/Seat";
 import {Booking} from "../../model/Booking";
+import {User} from "../../model/User";
 
 export const openSeatModal = createAction(
   "[Manager Dashboard] Open Seat Modal",
@@ -9,5 +10,5 @@ export const openSeatModal = createAction(
 
 export const openBookingModal = createAction(
   "[Manager Dashboard] Open Booking Modal",
-  props<{payload: {booking: Booking | null, seatId: number}}>()
+  props<{payload: {booking: Booking | null, seatId: number, user?: User | null}}>()
 )

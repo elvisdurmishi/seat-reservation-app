@@ -5,11 +5,12 @@ import {getUsers} from "../../../ngrx/users/users.selectors";
 import {Store} from "@ngrx/store";
 import {AppState} from "../../../ngrx/app.state";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {bookSeat} from "../../../ngrx/bookings/bookings.actions";
+import {bookSeat, clearBookingsList, loadSeatBookings} from "../../../ngrx/bookings/bookings.actions";
 import {map, withLatestFrom} from "rxjs";
 import {DateRange} from "../../../model/DateRange";
 import {getUser} from "../../../ngrx/auth/auth.selectors";
 import {getSeatBookings} from "../../../ngrx/bookings/bookings.selectors";
+import {User} from "../../../model/User";
 
 @Component({
   selector: 'app-booking-modal',
@@ -18,7 +19,8 @@ import {getSeatBookings} from "../../../ngrx/bookings/bookings.selectors";
 })
 export class BookingModalComponent implements OnInit, OnDestroy {
   @Input() booking!: Booking | null;
-  @Input() seatId!: number | null;
+  @Input() seatId!: number;
+  @Input() user!: User | null;
   users$ = this.store.select(getUsers);
   fromDate: NgbDate | null = null;
   toDate: NgbDate | null = null;
@@ -36,7 +38,7 @@ export class BookingModalComponent implements OnInit, OnDestroy {
 
     this.bookingForm = this.formBuilder.group({
       seatId: [''],
-      userId: ['', {validators: [Validators.required]}],
+      userId: ['', {validators: [Validators.required], disabled: true}],
       userName: [''],
       date: [{
         from: this.fromDate,
@@ -46,8 +48,13 @@ export class BookingModalComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    const {seatId, booking, userId, userName, date} = this;
+    const {seatId, user, booking, formUserId, formUserName, formDate} = this;
     this.formSeatId?.setValue(Number(seatId));
+    this.formUserId?.setValue(user?.id?.toString());
+    this.formUserName?.setValue(user?.name);
+
+    this.store.dispatch(clearBookingsList());
+    this.store.dispatch(loadSeatBookings({payload: {seatId: seatId}}));
 
     this.bookings$ = this.store.select(getSeatBookings).pipe(
       withLatestFrom(this.user$),
@@ -59,11 +66,12 @@ export class BookingModalComponent implements OnInit, OnDestroy {
       })).subscribe();
 
     if(booking) {
-      userId?.setValue(booking.userId);
-      userName?.setValue(booking.userName);
-      date?.setValue({...date?.getRawValue(), from: booking.date.from});
+      formUserId?.setValue(booking.userId);
+      formUserName?.setValue(booking.userName);
+
+      formDate?.setValue({...formDate?.getRawValue(), from: booking.date.from});
       this.fromDate = new NgbDate(booking.date.from.year, booking.date.from.month, booking.date.from.day);
-      date?.setValue({...date?.getRawValue(), to: booking.date.to});
+      formDate?.setValue({...formDate?.getRawValue(), to: booking.date.to});
       this.toDate = new NgbDate(booking.date.to.year, booking.date.to.month, booking.date.to.day);
     }
   }
@@ -73,8 +81,8 @@ export class BookingModalComponent implements OnInit, OnDestroy {
   }
 
   onDateSelection(dateRange: DateRange) {
-    this.date?.setValue({...this.date?.getRawValue(), from: dateRange.from});
-    this.date?.setValue({...this.date?.getRawValue(), to: dateRange.to});
+    this.formDate?.setValue({...this.formDate?.getRawValue(), from: dateRange.from});
+    this.formDate?.setValue({...this.formDate?.getRawValue(), to: dateRange.to});
 
     this.isInvalidDate(dateRange);
   }
@@ -83,11 +91,11 @@ export class BookingModalComponent implements OnInit, OnDestroy {
     this.activeModal.close();
   }
 
-  get userId() {
+  get formUserId() {
     return this.bookingForm.get('userId');
   }
 
-  get userName() {
+  get formUserName() {
     return this.bookingForm.get('userName');
   }
 
@@ -95,12 +103,12 @@ export class BookingModalComponent implements OnInit, OnDestroy {
     return this.bookingForm.get('seatId');
   }
 
-  get date(){
+  get formDate(){
     return this.bookingForm.get('date');
   }
 
   setUserName(user: string) {
-    this.userName?.setValue(user);
+    this.formUserName?.setValue(user);
   }
 
   saveBooking() {
@@ -123,7 +131,7 @@ export class BookingModalComponent implements OnInit, OnDestroy {
     const {from, to} = date;
 
     if(!to) {
-      this.date?.setErrors({invalidRange: true})
+      this.formDate?.setErrors({invalidRange: true})
       return true;
     }
 
@@ -136,7 +144,7 @@ export class BookingModalComponent implements OnInit, OnDestroy {
       let toDate   = new Date(to.year, to.month - 1, to.day);
 
       let invalidRange = currentFrom <= fromDate && currentTo >= toDate;
-      this.date?.setErrors(invalidRange ? {invalidRange: invalidRange} : null)
+      this.formDate?.setErrors(invalidRange ? {invalidRange: invalidRange} : null)
       return invalidRange;
     })
   }

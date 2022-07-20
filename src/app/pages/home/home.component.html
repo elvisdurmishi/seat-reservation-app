@@ -1,3 +1,4 @@
+<app-breadcrumb base="" basePath="" child="Home"></app-breadcrumb>
 <nav>
   <div class="nav nav-tabs" id="nav-tab" role="tablist">
     <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button"
@@ -10,9 +11,9 @@
 </nav>
 <div class="tab-content" id="nav-tabContent">
   <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-    <app-seats-list tab="main"></app-seats-list>
+    <app-seats-list tab="main" (onBookSeat)="bookSeat($event, 'main')"></app-seats-list>
   </div>
   <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-    <app-seats-list tab="second"></app-seats-list>
+    <app-seats-list tab="second" (onBookSeat)="bookSeat($event, 'main')"></app-seats-list>
   </div>
 </div>

@@ -1,5 +1,6 @@
 <button (mouseenter)="getSeatBookings()"
         (mouseleave)="clearSeatBookings()"
+        (click)="bookSeat(seat)"
         [ngbTooltip]="tipContent"
         class="seat-element text-center flex-center flex-column border-0"
         [ngClass]="seat.status === 'free' ? 'text-success' : 'text-danger'">

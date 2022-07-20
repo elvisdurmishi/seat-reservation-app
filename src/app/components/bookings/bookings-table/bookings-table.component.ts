@@ -30,6 +30,6 @@ export class BookingsTableComponent implements OnInit {
   }
 
   deleteBooking(booking: Booking) {
-    this.store.dispatch(deleteBooking({payload: {bookingId: booking.id}}))
+    this.store.dispatch(deleteBooking({payload: {booking: booking}}))
   }
 }

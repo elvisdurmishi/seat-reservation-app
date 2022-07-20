@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {NgbCalendar, NgbDate, NgbDateParserFormatter} from "@ng-bootstrap/ng-bootstrap";
+import {NgbCalendar, NgbDate, NgbDateParserFormatter, NgbDateStruct} from "@ng-bootstrap/ng-bootstrap";
 import {faCalendar} from "@fortawesome/free-solid-svg-icons";
 import {DateRange} from "../../../model/DateRange";
 
@@ -16,12 +16,14 @@ export class DatepickerComponent implements OnInit {
   @Output() onDateSelection = new EventEmitter();
   hoveredDate: NgbDate | null = null;
   faCalendar = faCalendar;
-  minDate: NgbDate | null = this.hasMinDate ? this.calendar.getToday() : null;
+  minDate: NgbDateStruct = this.calendar.getToday();
   maxDate: NgbDate = this.calendar.getNext(this.calendar.getToday(), 'd', 60);
 
   constructor(private calendar: NgbCalendar, public formatter: NgbDateParserFormatter) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.minDate = this.hasMinDate ? this.calendar.getToday() : this.calendar.getPrev(this.calendar.getToday(), 'd', 60);
+  }
 
   onSelect(date: NgbDate) {
     if (!this.fromDate && !this.toDate) {
