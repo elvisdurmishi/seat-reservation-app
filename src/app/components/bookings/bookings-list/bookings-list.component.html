@@ -2,4 +2,10 @@
     [inProfile]="inProfile"
     [booking]="booking"
     (onEdit)="onBookingEdit($event)"
-    (onDelete)="onBookingDelete($event)"></tr>
+    (onDelete)="onBookingDelete($event)">
+</tr>
+<ng-container *ngIf="bookings?.length === 0">
+  <tr class="text-center">
+    <td colspan="6">There are no booking yet.</td>
+  </tr>
+</ng-container>

@@ -175,24 +175,6 @@
         }
       },
       "id": 16
-    },
-    {
-      "seatId": 5,
-      "userId": "1",
-      "userName": "Elvis",
-      "date": {
-        "from": {
-          "year": 2022,
-          "month": 7,
-          "day": 20
-        },
-        "to": {
-          "year": 2022,
-          "month": 7,
-          "day": 31
-        }
-      },
-      "id": 17
     }
   ]
 }
