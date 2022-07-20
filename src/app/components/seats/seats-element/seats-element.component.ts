@@ -36,7 +36,11 @@ export class SeatsElementComponent implements OnInit {
 
     this.timeout = setTimeout(() => {
       this.store.dispatch(loadSeatBookings({payload: {seatId: this.seat.id}}))
-    }, 500)
+    }, 100)
+  }
+
+  clearSeatBookings() {
+    this.store.dispatch(clearBookingsList());
   }
 
   isActualBooking(date: DateRange) {
