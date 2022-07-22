@@ -20,7 +20,6 @@ import {EffectsModule} from "@ngrx/effects";
 import {ReactiveFormsModule} from "@angular/forms";
 import {CookieService} from "ngx-cookie-service";
 import {SmallLoaderComponent} from "./components/common/small-loader/small-loader.component";
-import { DashboardComponent } from './components/dashboard/dashboard/dashboard.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {DatepickerComponent} from "./components/common/datepicker/datepicker.component";
 import { SeatModalComponent } from './components/modals/seat-modal/seat-modal.component';
@@ -49,7 +48,6 @@ import { DateRangePipe } from './pipes/date-range.pipe';
     BreadcrumbComponent,
     RegisterComponent,
     SmallLoaderComponent,
-    DashboardComponent,
     DatepickerComponent,
     SeatModalComponent,
     ErrorComponent,
